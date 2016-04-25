@@ -1,2 +1,5 @@
-# seqkit
-test_approach for integrated chipseq analysis
+# SeqKit
+
+A package to do QC and pipeline.
+
+*Under development*
