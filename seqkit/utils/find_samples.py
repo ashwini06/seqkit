@@ -3,7 +3,7 @@
 import os
 from glob import glob
 
-def find_sample(proj_dir):
+def find_samples(proj_dir):
     """Find the samples in a given proj dir"""
     current_dir = os.getcwd()
     samples_fq = {}
