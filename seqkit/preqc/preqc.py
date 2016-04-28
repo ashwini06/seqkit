@@ -2,7 +2,6 @@
 """Methods and functionalites to do a pre QC"""
 import os
 import pdb
-import subprocess
 from seqkit.utils.find_samples import find_samples
 
 def run_qc(project):
