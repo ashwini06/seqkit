@@ -12,7 +12,4 @@ from seqkit.preqc import preqc as qc
 def preqc(ctx, project):
 	""" pre QC methods and utilities """
 	qc.run_qc("/proj/b2012025/RAW_DATA/ChIP_histone/lizzy_andersson_ChIP_ESC_wt_57-64")
-	cmd = ['module','load','FastQC/0.11.5']
-	subprocess.check_all(cmd)
-	cmd = ['fastqc', samples, '-o' ]
-	subprocess.check_all(cmd)
+
