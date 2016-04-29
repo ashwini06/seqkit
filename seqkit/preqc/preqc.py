@@ -19,7 +19,8 @@ def run_qc(project):
     		                  'module load bioinfo-tools\n'
     		                  'module load FastQC/0.11.5\n'
     		                  'cd {sam_dir}\n'
-    		                  'fastqc -o fastqc -f fastq {fq_files}\n'
+    		                  'if [[ ! -d "fastqc" ]]; then mkdir "fastqc"; fi'
+				  'fastqc -o fastqc -f fastq {fq_files}\n'
     		                  )
     samples = find_samples(proj_dir)
     for sam in samples.keys():
