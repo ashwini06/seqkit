@@ -9,3 +9,7 @@ def run_qc(project):
     samples = find_samples(project)
     pdb.set_trace()
     ## do everything after here ##
+    cmd = ['module','load','FastQC/0.11.5']
+    subprocess.check_all(cmd)
+    cmd = ['fastqc', samples, '-o' ]
+    subprocess.check_all(cmd)
