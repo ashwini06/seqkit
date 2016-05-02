@@ -2,6 +2,7 @@
 """Methods and functionalites to do a pre QC"""
 import os
 import pdb
+import subprocess
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
@@ -34,4 +35,5 @@ def run_qc(project):
         job_file = os.path.join(src_dir, "{}_fastqc.sh".format(sam))
 	with open(job_file, 'w') as jb_fl:
             jb_fl.write(fastqc_sbatch_template.format(sam=sam, sam_dir=sam_dir,fastqc_dir=fastqc_dir, fq_files=" ".join(fq_fls)))
-#	    subprocess.check_call(['sbatch', +sam,'_fastqc.sh'])
+	subprocess.check_call(['sbatch',job_file])
+
