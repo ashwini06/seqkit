@@ -10,7 +10,7 @@ def find_samples(proj_dir):
     os.chdir(proj_dir)
     samples = [sam for sam in os.listdir(os.getcwd()) if os.path.isdir(sam)]
     for sam in samples:
-        samples_fq[sam] = glob("{}/Rawdata/*.fastq".format(sam))
+        samples_fq[sam] = glob("{}/Rawdata/*.fastq*".format(sam))
     #    pdb.set_trace()
     os.chdir(current_dir)
     return samples_fq
