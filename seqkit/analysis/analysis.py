@@ -24,7 +24,7 @@ def run_bowtie(project):
 			   'for run in {fq_files};do\n'
 			   'nm=$(basename \$run)\n'
 			   'nm=\${nm/.fastq/}\n'
-			   'bowtie2 -t -p 8 '+bowtie_index+' -q ${run} -S {bowtie_dir}/${nm}.sam > {bowtie_dir}/${nm}_bowtie.log\n'
+			   'bowtie2 -t -p 8 '+bowtie2_index+' -q ${run} -S {bowtie_dir}/${nm}.sam > {bowtie_dir}/${nm}_bowtie.log\n'
 			   'done\n'
                         )
     samples = find_samples(proj_dir)
