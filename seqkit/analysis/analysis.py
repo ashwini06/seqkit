@@ -21,10 +21,14 @@ def run_bowtie(project):
     		           'module load bowtie2/2.2.6\n'
     		           'module load samtools/1.3\n'
 		 	   'cd '+proj_dir+'\n'
+			   'if [[ $(ls {sam}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam}/Rawdata/*gz; fi\n'
 			   'for run in {fq_files};do\n'
-			   'nm=$(basename \$run)\n'
-			   'nm=\${nm/.fastq/}\n'
-			   'bowtie2 -t -p 8 '+bowtie2_index+' -q ${run} -S {bowtie_dir}/${nm}.sam > {bowtie_dir}/${nm}_bowtie.log\n'
+			   'nm=$(basename ${{run}})\n'
+			   'nm=${{nm/.fastq/}}\n'
+			  # 'if [[ ${{run}} == *.gz ]] ; then gunzip '+proj_dir+'/${{run}} ; fi\n'
+			   'bowtie2 -t -p 8 -k2 --very-sensitive -x '+bowtie2_index+'/genome -q ${{run}} -S {bowtie2_dir}/${{nm}}.sam > {bowtie2_dir}/${{nm}}_bowtie2.log\n'
+			   'samtools view -bS -o {bowtie2_dir}/${{nm}}.bam {bowtie2_dir}/${{nm}}.sam\n'
+			   'rm {bowtie2_dir}/${{nm}}.sam \n'
 			   'done\n'
                         )
     samples = find_samples(proj_dir)
