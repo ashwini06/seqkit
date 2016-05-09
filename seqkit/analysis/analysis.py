@@ -55,9 +55,9 @@ def run_align(project,aligner):
 		src_dir = os.path.join(sam_dir, 'scripts')
         	if not os.path.exists(src_dir):
         		os.mkdir(src_dir)
-		align_dir = os.path.join(sam_dir,"{}_{}".format(aligner,"alignment"))
+		align_dir = os.path.join(sam_dir,"{}_{}".format(aligner,"alignment"),"bam_files")
 		if not os.path.exists(align_dir):
-			os.mkdir(align_dir)
+			os.makedirs(align_dir)
         	job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,aligner))
 		with open(job_file, 'w') as jb_fl:
         		jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir,align_dir=align_dir,proj_dir=proj_dir,align_index=align_index, fq_files=" ".join(fq_fls)))
