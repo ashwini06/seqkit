@@ -2,6 +2,7 @@
 """Methods and functionalites to do analysis"""
 import os
 import pdb
+from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
@@ -55,7 +56,7 @@ def run_align(project,aligner):
 		src_dir = os.path.join(sam_dir, 'scripts')
         	if not os.path.exists(src_dir):
         		os.mkdir(src_dir)
-		align_dir = os.path.join(sam_dir,"{}_{}".format(aligner,"alignment"),"bam_files")
+		align_dir = os.path.join(sam_dir,"{}_{}".format("alignment",aligner),"bam_files")
 		if not os.path.exists(align_dir):
 			os.makedirs(align_dir)
         	job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,aligner))
@@ -67,27 +68,25 @@ def run_b2b(project):
 	""" Will run the bam to bed file conversion """
 	root_dir = conf.get('root_dir','')
         proj_dir = os.path.join(root_dir, project)
-	align_b2b = ('#!/bin/bash -l\n'
+	template_b2b = ('#!/bin/bash -l\n'
 		    'module load BEDTools/2.11.2\n'
-		    #'bamToBed -i {align_dir}/${{nam}}_sorted.bam > {bed_dir}/${{nam}}.bed\n'
-	            #'awk -F\\t -v 'OFS=\t' '{print chr$1,$2,$3,".",$5,$6}' {bed_dir}/${{nam}}.bed | sort -u > {bed_dir}/${{nam}}_uniq.bed\n'
-	 	    #'rm {bed_dir}/${{nam}}.bed\n'
+		    'bamToBed -i {bam_file} > {bed_file}\n'
+	            'awk -F\\\\t -v \'OFS=\\t\' \'{{print chr$1,$2,$3,".",$5,$6}}\' {bed_file} | sort -u > {bed_uniq_file}\n'
+	 	    'rm {bed_file}\n'
 		    )
 
-	samples = find_samples(proj_dir)
-	for sam in samples.keys():
-		src_dir =  os.path.join(proj_dir, sam, 'scripts')
-		align_dir = os.path.join(proj_dir,sam,"{}".format("*alignment"))
-		bed_dir = os.path.join(proj_dir,sam,'bedfiles')
+	bam_files = glob("{}/*/alignment*/bam_files/*.bam".format(proj_dir))
+	for bam in bam_files:
+		sam_dir = os.path.dirname(bam).replace("bam_files","")
+		bed_dir = os.path.join(sam_dir,'bedfiles')
 		if not os.path.exists(bed_dir):	
 			os.mkdir(bed_dir)
-		pdb.set_trace()
-		for file in os.path.listdir(align_dir):
-			if file.endswith("*.bam"):
-				nam=file 
-                job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,bam2bed))
+		file_nm = os.path.splitext(os.path.basename(bam))[0]
+		bed_file = "{}/{}.bed".format(bed_dir,file_nm)
+		bed_uniq_file = "{}/{}_uniq.bed".format(bed_dir,file_nm)
+		job_file = os.path.join("/".join(sam_dir.split('/')[:-2]),"scripts","{}_bamTobed.sh".format(file_nm))
 		with open(job_file, 'w') as jb_fl:
-                        jb_fl.write(align_b2b.format(sam=sam,align_dir=align_dir,proj_dir=proj_dir,bed_dir=bed_dir))
+	       		jb_fl.write(template_b2b.format(bam_file=bam,bed_file=bed_file,bed_uniq_file=bed_uniq_file))
 
 
 	
