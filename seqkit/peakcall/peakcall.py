@@ -25,4 +25,11 @@ def run_peakcall(project,input_file,peak_call):
 			   ''+load_module''
 			   ''+macs2_cmd+''
 			)
-	
+	pk_file = open(input_file,'r')
+	for ln in iter(pk_file):	
+		ln = ln.strip()
+		ln =  ln.split('\t')
+		treatment = ln[0]
+		control = ln [1]
+		name = "{}_Vs_{}".format(treatment,control)
+		 
