@@ -6,7 +6,7 @@ from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
-def run_align(project,aligner):
+def run_align(project,aligner,bam_to_bed):
 	"""Will run the preferred-alignment"""
 	root_dir = conf.get('root_dir','')
 	proj_dir = os.path.join(root_dir, project)
@@ -62,7 +62,7 @@ def run_align(project,aligner):
         	job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,aligner))
 		with open(job_file, 'w') as jb_fl:
         		jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir,align_dir=align_dir,proj_dir=proj_dir,align_index=align_index, fq_files=" ".join(fq_fls)))
-		#subprocess.check_call(['sbatch',job_file])
+		subprocess.check_call(['sbatch',job_file])
 
 def run_b2b(project):
 	""" Will run the bam to bed file conversion """

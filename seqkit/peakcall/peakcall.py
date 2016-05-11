@@ -22,14 +22,18 @@ def run_peakcall(project,input_file,peak_call):
                            '#SBATCH --mail-type=FAIL\n'
                            '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                            'module load bioinfo-tools\n'
-			   ''+load_module''
+			   ''+load_module+''
 			   ''+macs2_cmd+''
 			)
 	pk_file = open(input_file,'r')
+	pk_file.next()
 	for ln in iter(pk_file):	
 		ln = ln.strip()
 		ln =  ln.split('\t')
-		treatment = ln[0]
-		control = ln [1]
-		name = "{}_Vs_{}".format(treatment,control)
+		treat = ln[0]
+		ctrl = ln [1]
+		name = "{}_Vs_{}".format(treat,ctrl)
+		treat_dir = glob("{}/{}/alignment*/bedfiles/{}.*uniq.bed".format(proj_dir,treat,treat))
+		control_dir = glob("{}/{}/alignment*/bedfiles/{}.*uniq.bed".format(proj_dir,treat,treat))
+		pdb.set_trace()
 		 

@@ -14,8 +14,9 @@ def analysis():
 @click.option('-p','--project',required=True, type=click.STRING,help='Project to perform alignment')
 @click.option('-o', '--out_dir', type=click.STRING, help='Path to save outputs')
 @click.option('-a','--aligner', default='bowtie2',type=click.STRING,help='which aligner to use bowtie2/bwa, default is "bowtie2"')
+@click.option('--bam_to_bed', is_flag=True, help="Convert the aligned bam files to bed files")
 @click.pass_context
-def align(ctx, project, out_dir, aligner):
+def align(ctx, project, out_dir, aligner,bam_to_bed):
 	""" Commands to run analysis/pipelines """
 	als.run_align(project,aligner)
 
