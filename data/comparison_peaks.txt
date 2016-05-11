@@ -1,0 +1,17 @@
+Treatment	Control
+Foxa2_11_3_13	IgG_11_3_13
+Foxa2_12_3_13	IgG_12_3_13
+H3K27Ac_11_3_13	IgG_11_3_13
+H3K27Ac_12_3_13	IgG_12_3_13
+H3K27me3_11_3_13	IgG_11_3_13
+H3K27me3_12_3_13	IgG_12_3_13
+H3K4me3_11_3_13	IgG_11_3_13
+H3K4me3_12_3_13	IgG_12_3_13
+Foxa2_11_3_13	sonctrl_11_3_13
+Foxa2_12_3_13	sonctrl_12_3_13
+H3K27Ac_11_3_13	sonctrl_11_3_13
+H3K27Ac_12_3_13	sonctrl_12_3_13
+H3K27me3_11_3_13	sonctrl_11_3_13
+H3K27me3_12_3_13	sonctrl_12_3_13
+H3K4me3_11_3_13	sonctrl_11_3_13
+H3K4me3_12_3_13	sonctrl_12_3_13
