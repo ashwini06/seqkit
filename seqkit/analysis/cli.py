@@ -21,9 +21,9 @@ def align(ctx, project, aligner, bam_to_bed):
 
 @analysis.command()
 @click.option('-p','--project',required=True, type=click.STRING,help='project to perform bam2bed conversion')
-@click.option('-o', '--out_dir', type=click.STRING, help='Path to save outputs')
+@click.option('-a','--aligner', default='bowtie2',type=click.STRING,help='which aligner was used to align, default is "bowtie2"')
+@click.option('-s', '--slurm', is_flag=True, help='Run the conversion as slurm jobs')
 @click.pass_context
-def bamTobed(ctx, project,out_dir):
+def bamTobed(ctx, project, aligner, slurm):
 	""" Commands to convert bam files to bed files """
-	als.run_b2b(project)
-
+	als.run_b2b(project,slrum)

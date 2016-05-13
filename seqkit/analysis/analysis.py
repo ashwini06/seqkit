@@ -2,9 +2,34 @@
 """Methods and functionalites to do analysis"""
 import os
 import pdb
+import subprocess
 from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
+
+def run_b2b(project, aligner, slurm=False, samples=None, job_file=None):
+	""" Will run the bam to bed file conversion """
+	root_dir = conf.get('root_dir','')
+    proj_dir = os.path.join(root_dir, project)
+	template_b2b = ('## run bam to bed\n'
+		    'module load BEDTools/2.11.2\n'
+		    'bamToBed -i {bam_file} > {bed_file}\n'
+	        'awk -F\\\\t -v \'OFS=\\t\' \'{{print chr$1,$2,$3,".",$5,$6}}\' {bed_file} | sort -u > {bed_uniq_file}\n'
+	 	    'rm {bed_file}\n')
+    if not samples:
+        samples = find_samples(proj_dir, file_type="bam", aligner=aligner):
+
+    for sam in samples:
+        bam_fls = samples[sam]
+		sam_dir = os.path.join(proj_dir, sam)
+		bed_dir = os.path.join(sam_dir, "alignment_{}".format(aligner), "bedfiles")
+		if not os.path.exists(bed_dir):	
+			os.mkdir(bed_dir)
+        if slurm:
+            if not job_file:
+		        job_file = os.path.join(sam_dir,"scripts","{}_{}_bamTobed.sh".format(sam, aligner))
+		    with open(job_file, 'a') as jb_fl:
+	       	    jb_fl.write(template_b2b.format(bam_file=bam,bed_file=bed_file,bed_uniq_file=bed_uniq_file))
 
 def run_align(project, aligner, bam_to_bed):
 	"""Will run the preferred-alignment"""
@@ -23,8 +48,6 @@ def run_align(project, aligner, bam_to_bed):
 		align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{run}} -S {align_dir}/${{nam}}.sam > {align_dir}/${{nam}}_bowtie2.log\n'
                         'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n'
 		                'rm {align_dir}/${{nam}}.sam\n')
-    
-    if bam_to_bed:
 	
 	align_template = ('#!/bin/bash -l\n'
     		           '#SBATCH -A b2012025\n'
@@ -51,46 +74,27 @@ def run_align(project, aligner, bam_to_bed):
 
 	samples = find_samples(proj_dir)
 	for sam in samples.keys():
-        	fq_fls = samples[sam]
-        	sam_dir = os.path.join(proj_dir, sam)
+        fq_fls = samples[sam]
+        sam_dir = os.path.join(proj_dir, sam)
 		src_dir = os.path.join(sam_dir, 'scripts')
-        	if not os.path.exists(src_dir):
-        		os.mkdir(src_dir)
-		align_dir = os.path.join(sam_dir,"{}_{}".format("alignment",aligner),"bam_files")
+        if not os.path.exists(src_dir):
+        	os.mkdir(src_dir)
+		align_dir = os.path.join(sam_dir,"alignment_{}".format(aligner),"bam_files")
 		if not os.path.exists(align_dir):
 			os.makedirs(align_dir)
-        if bam_to_bed:
-    		bed_dir = os.path.join(sam_dir,"{}_{}".format("alignment",aligner),"bed_files")
-    		if not os.path.exists(bed_dir):
-    			os.makedirs(bed_dir)
         job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,aligner))
 		with open(job_file, 'w') as jb_fl:
         	jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir,align_dir=align_dir,proj_dir=proj_dir,
                                               align_index=align_index, fq_files=" ".join(fq_fls), bed_dir=bed_dir))
+        if bam_to_bed:
+            tmp_bam_file_names = []
+            for fq in fq_fls:
+                f_nm = os.path.join(align_dir, "{}_sorted.bam".format(os.path.basename(fq).replace('.gz','').replace('.fastq','')))
+                tmp_bam_file_names.append(f_nm)
+            run_b2b(project=project, aligner=aligner, slurm=True, samples={sam:tmp_bam_file_names}, job_file=job_file)
 		subprocess.check_call(['sbatch',job_file])
 
-def run_b2b(project):
-	""" Will run the bam to bed file conversion """
-	root_dir = conf.get('root_dir','')
-    proj_dir = os.path.join(root_dir, project)
-	template_b2b = ('#!/bin/bash -l\n'
-		    'module load BEDTools/2.11.2\n'
-		    'bamToBed -i {bam_file} > {bed_file}\n'
-	        'awk -F\\\\t -v \'OFS=\\t\' \'{{print chr$1,$2,$3,".",$5,$6}}\' {bed_file} | sort -u > {bed_uniq_file}\n'
-	 	    'rm {bed_file}\n')
 
-	bam_files = glob("{}/*/alignment*/bam_files/*.bam".format(proj_dir))
-	for bam in bam_files:
-		sam_dir = os.path.dirname(bam).replace("bam_files","")
-		bed_dir = os.path.join(sam_dir,'bedfiles')
-		if not os.path.exists(bed_dir):	
-			os.mkdir(bed_dir)
-		file_nm = os.path.splitext(os.path.basename(bam))[0]
-		bed_file = "{}/{}.bed".format(bed_dir,file_nm)
-		bed_uniq_file = "{}/{}_uniq.bed".format(bed_dir,file_nm)
-		job_file = os.path.join("/".join(sam_dir.split('/')[:-2]),"scripts","{}_bamTobed.sh".format(file_nm))
-		with open(job_file, 'w') as jb_fl:
-	       		jb_fl.write(template_b2b.format(bam_file=bam,bed_file=bed_file,bed_uniq_file=bed_uniq_file))
 
 
 	
