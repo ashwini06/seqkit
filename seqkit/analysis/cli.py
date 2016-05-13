@@ -26,4 +26,4 @@ def align(ctx, project, aligner, bam_to_bed):
 @click.pass_context
 def bamTobed(ctx, project, aligner, slurm):
 	""" Commands to convert bam files to bed files """
-	als.run_b2b(project,slrum)
+	als.run_b2b(project, aligner, slrum)
