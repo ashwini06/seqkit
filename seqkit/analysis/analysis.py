@@ -2,6 +2,7 @@
 """Methods and functionalites to do analysis"""
 import os
 import pdb
+import inspect
 import subprocess
 from glob import glob
 from seqkit import CONFIG as conf
@@ -11,6 +12,13 @@ def run_b2b(project, aligner, slurm=False, samples=None, job_file=None):
 	""" Will run the bam to bed file conversion """
 	root_dir = conf.get('root_dir','')
 	proj_dir = os.path.join(root_dir, project)
+	sbatch_template = ('#!/bin/bash -l\n'
+					  '#SBATCH -A b2012025\n'
+					  '#SBATCH -J {sam}_align\n'
+					  '#SBATCH -p core -n 2 \n'	
+					  '#SBATCH -t	10:00:00\n'
+					  '#SBATCH --mail-type=FAIL\n'
+					  '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n')
 	template_b2b = ('## run bam to bed\n'
 					'module load BEDTools/2.11.2\n'
 					'for bam in $({sam_dir}/alignment_{aligner}/bam_files/*.bam);do\n'
@@ -29,14 +37,20 @@ def run_b2b(project, aligner, slurm=False, samples=None, job_file=None):
 		bed_dir = os.path.join(sam_dir, "alignment_{}".format(aligner), "bedfiles")
 		if not os.path.exists(bed_dir):	
 			os.mkdir(bed_dir)
-		if slurm:
-			if not job_file:
-				job_file = os.path.join(sam_dir,"scripts","{}_{}_bamTobed.sh".format(sam, aligner))
+		if job_file:
 			with open(job_file, 'a') as jb_fl:
 				jb_fl.write(template_b2b.format(sam_dir=sam_dir, aligner=aligner))
+			return
+		if slurm:
+			job_file = os.path.join(sam_dir,"scripts","{}_{}_bamTobed.sh".format(sam, aligner))
+			template_b2b = sbatch_template + template_b2b
+			with open(job_file, 'w') as jb_fl:
+				jb_fl.write(template_b2b.format(sam_dir=sam_dir, aligner=aligner))
+#			subprocess.check_call(['sbatch',job_file])
 
 def run_align(project, aligner, bam_to_bed):
 	"""Will run the preferred-alignment"""
+	run_b2b(project=project, aligner=aligner)
 	root_dir = conf.get('root_dir','')
 	proj_dir = os.path.join(root_dir, project)
 	bed_dir = ''
@@ -66,8 +80,7 @@ def run_align(project, aligner, bam_to_bed):
 					  'if [[ $(ls {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
 					  'for fq in $({sam_dir}/Rawdata/*.fastq);do\n'
 					  'nm=$(basename ${{fq}})\n'
-					  'nm=${{nm/.fastq/}}\n'
-#					  'nm=${{nm/_*/}}\n' 
+					  'nm=${{nm/_*/}}\n' 
 					  'nam="{sam}_"${{nm}}\n'
 					  +align_block+
 					  'samtools sort -m 10000000 {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted'

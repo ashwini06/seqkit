@@ -12,9 +12,9 @@ def find_samples(proj_dir, file_type=None, aligner=None):
 	if not file_type:
 		return samples
 	for sam in samples:
-		if file_type == "fastq"
+		if file_type == "fastq":
 			samples_fls[sam] = glob("{}/Rawdata/*.fastq*".format(sam))
-		elif file_type == "bam"
+		elif file_type == "bam":
 			samples_fls[sam] = glob("{}/alignment_{}/bam_files/*.bam".format(sam, aligner))
 	os.chdir(current_dir)
 	return samples_fls
