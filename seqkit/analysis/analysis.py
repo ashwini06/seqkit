@@ -69,7 +69,7 @@ def run_align(project, aligner, sample, bam_to_bed):
 	elif aligner == "bowtie2":
 		align_module = 'module load bowtie2/2.2.6\n'
 		align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/Bowtie2Index/genome"
-		align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{fq}} -S {align_dir}/${{nam}}.sam > {align_dir}/${{nam}}_bowtie2.log\n'
+		align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{fq}} -S {align_dir}/${{nam}}.sam 2> {align_dir}/${{nam}}_bowtie2.log\n'
 						'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n'
 						'rm {align_dir}/${{nam}}.sam\n')
 	
@@ -83,7 +83,7 @@ def run_align(project, aligner, sample, bam_to_bed):
 					  'module load bioinfo-tools\n'
 					  'module load samtools/1.3\n'
 					  +align_module+
-					  'if [[ $(ls --color=never {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
+					  'if [[ $(ls --color=never | grep -w {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
 					  'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
 					  'nm=$(basename ${{fq}})\n'
 					  'nm=${{nm/_*/}}\n' 

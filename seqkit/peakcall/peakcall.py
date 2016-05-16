@@ -7,7 +7,7 @@ from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
 
-def run_peakcall(project,input_file,mode,peak_call):
+def run_peakcall(project, input_file, mode, peak_call):
     """ Will run the preffered peak-calling software """
     root_dir = conf.get('root_dir','')  
     proj_dir = os.path.join (root_dir,project)
@@ -22,16 +22,19 @@ def run_peakcall(project,input_file,mode,peak_call):
                        'module load bioinfo-tools\n')
     if mode == "TF":
         if peak_call == "macs2":
-            macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 30\n')
+            #macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 30\n')
+            macs2_cmd = conf.get('macs2_TF','')
+           # pdb.set_trace()
             template = ('## Running Peak-calling for TF-ChIP data\n'
                         ''+load_module+''
-			            ''+macs2_cmd+''
-		                )
+			''+macs2_cmd+''
+		        )
         else:
             raise SystemExit("Please mention the type of peak caller - macs2")
     elif mode == "HM":   
         if peak_call == "macs2":
-            macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 3 --broad\n')
+            #macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 3 --broad\n')
+            macs2_cmd = conf.get('macs2_HM','')
             template = ('# Running macs2 peak-calling for HM data\n'
                         ''+load_module+''
                         ''+macs2_cmd+'')
@@ -47,19 +50,18 @@ def run_peakcall(project,input_file,mode,peak_call):
         raise SystemExit("Please mention the type of mode - either TF or HM")
 
         
-	pk_file = open(input_file,'r')
-	pk_file.next()
-	for ln in iter(pk_file):	
-		ln = ln.strip()
-		ln =  ln.split('\t')
-		treat = ln[0]
-		ctrl = ln [1]
-		name = "{}_Vs_{}".format(treat,ctrl)
-		treat_fl = glob("{}/{}/alignment*/bedfiles/{}.*uniq.bed".format(proj_dir,treat,treat))
-		control_fl = glob("{}/{}/alignment*/bedfiles/{}.*uniq.bed".format(proj_dir,treat,treat))
-		#pdb.set_trace()
-		jb_fl = os.path.join(proj_dir,treat,"scripts","{}_peakcall.sh".format(name))
+    pk_file = open(input_file,'r')
+    pk_file.next()
+    for ln in iter(pk_file):	
+        ln = ln.strip()
+        ln =  ln.split('\t')
+        treat = ln[0]
+        ctrl = ln[1]
+        name = "{}_Vs_{}".format(treat,ctrl)
+	treat_fl = glob("{}/{}/alignment_*/bedfiles/{}*uniq.bed".format(proj_dir,treat,treat))
+	control_fl = glob("{}/{}/alignment*/bedfiles/{}.*uniq.bed".format(proj_dir,treat,treat))
+        #pdb.set_trace()
+        jb_fl = os.path.join(proj_dir,treat,"scripts","{}_peakcall.sh".format(name))
         template_pc = sbatch_template + template
         with open(jb_fl,'w') as jb_fl:
             jb_fl.write(template_pc.format(name=name, treatment=treat_fl, control=control_fl))
-
