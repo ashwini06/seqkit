@@ -8,9 +8,9 @@ from seqkit.utils.find_samples import find_samples
 
 
 def run_peakcall(project,input_file,mode,peak_call):
-	""" Will run the preffered peak-calling software """
-	root_dir = conf.get('root_dir','')
-	proj_dir = os.path.join (root_dir,project)
+    """ Will run the preffered peak-calling software """
+    root_dir = conf.get('root_dir','')  
+    proj_dir = os.path.join (root_dir,project)
     load_module = ('module load MACS/2.1.0\n')
     sbatch_template = ('#!/bin/bash -l\n'
                        '#SBATCH -A b2012025\n'
@@ -22,24 +22,24 @@ def run_peakcall(project,input_file,mode,peak_call):
                        'module load bioinfo-tools\n')
     if mode == "TF":
         if peak_call == "macs2":
-		    macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 30\n')
-            template = ( '## Running Peak-calling for TF-ChIP data \n'
+            macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 30\n')
+            template = ('## Running Peak-calling for TF-ChIP data\n'
                         ''+load_module+''
 			            ''+macs2_cmd+''
 		                )
         else:
             raise SystemExit("Please mention the type of peak caller - macs2")
-    elif mode == "HM" :   
+    elif mode == "HM":   
         if peak_call == "macs2":
             macs2_cmd = ('macs2 callpeak -t ${treatment} -c ${control} -n ${name} -g mm -f BED -p 0.001 -m 10 3 --broad\n')
-            template = ('# Running macs2 peak-calling for HM data\n')
+            template = ('# Running macs2 peak-calling for HM data\n'
                         ''+load_module+''
                         ''+macs2_cmd+'')
     
         elif peak_call == "danpos2":
             danpos_path = "export danpos2 path"
             danpos_cmd = ('python danpos.py dpeak ${treatment} -b ${control}')
-            template = ('# Running danpos2 peakcalling for HM data\n')
+            template = ('# Running danpos2 peakcalling for HM data\n'
                         ''+danpos_cmd+'')
         else:
             raise SystemExit("Please mention the type of peak_Caller (macs2/danpos2)")

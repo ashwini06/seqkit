@@ -16,7 +16,7 @@ def peakcall():
 @click.option('-o', '--out_dir', type=click.STRING, help='Path to save outputs')
 @click.option('-m','--mode', default='TF',type=click.STRING,help='type of ChIP-data (Transcription factor(TF) or Histone modifications(HM))')
 @click.option('--peak_call', default='macs2',type=click.STRING,help='which peak-calling to use macs2/sissrs/danpos2, default is "macs2"')
-@click.pass_contexti
+@click.pass_context
 def peakcall(ctx,project,input_file,out_dir,mode,peak_call):
 	""" Peak calling methods to call the ChIPSeq signals"""
 	pc.run_peakcall(project,input_file,mode,peak_call)
