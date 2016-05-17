@@ -7,22 +7,20 @@ from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
-def run_b2b(project, aligner, samples=None, slurm=False, job_file=None):
+def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
 	""" Will run the bam to bed file conversion """
 	root_dir = conf.get('root_dir','')
 	proj_dir = os.path.join(root_dir, project)
 
-	if sample:
+    if sample:
 		if os.path.isdir(os.path.join(proj_dir, sample)):
 			samples = [sample]
 		else:
 			raise SystemExit("Given sample {} is not found in project directory {}".format(sample, proj_dir))
 	else:
-	
-    if not sample:
-    	samples = find_samples(proj_dir)
+		samples = find_samples(proj_dir)
 
-	for sam in samples:
+    for sam in samples:
 		sbatch_template = ('#!/bin/bash -l\n'
 				   '#SBATCH -A b2012025\n'
 				   '#SBATCH -J {sam}_bam2bed\n'
