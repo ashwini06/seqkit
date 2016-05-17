@@ -7,7 +7,7 @@ from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
-def run_b2b(project, aligner, sample, slurm=False, job_file=None):
+def run_b2b(project, aligner, samples=None, slurm=False, job_file=None):
 	""" Will run the bam to bed file conversion """
 	root_dir = conf.get('root_dir','')
 	proj_dir = os.path.join(root_dir, project)
@@ -18,7 +18,9 @@ def run_b2b(project, aligner, sample, slurm=False, job_file=None):
 		else:
 			raise SystemExit("Given sample {} is not found in project directory {}".format(sample, proj_dir))
 	else:
-		samples = find_samples(proj_dir)
+	
+    if not sample:
+    	samples = find_samples(proj_dir)
 
 	for sam in samples:
 		sbatch_template = ('#!/bin/bash -l\n'
@@ -32,7 +34,7 @@ def run_b2b(project, aligner, sample, slurm=False, job_file=None):
 				'module load BEDTools/2.11.2\n'
 				'for bam in $(ls {sam_dir}/alignment_{aligner}/bam_files/*sorted.bam);do\n'
 				'bed_fl=${{bam/.bam/.bed}}\n'
-				'bed_fl=${{bed_fl/bam_files/bed_files}}\n'
+				'bed_fl=${{bed_fl/bam_files/bedfiles}}\n'
 				'bed_uniq_fl=${{bed_fl/.bed/_uniq.bed}}\n'
 				'bamToBed -i ${{bam}} > ${{bed_fl}}\n'
 				'awk -F\\\\t -v \'OFS=\\t\' \'{{print chr$1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
@@ -89,7 +91,7 @@ def run_align(project, aligner, sample, bam_to_bed):
 					  'nm=${{nm/_*/}}\n' 
 					  'nam="{sam}_"${{nm}}\n'
 					  +align_block+
-					  'samtools sort -m 10000000 {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n'
+					  'samtools sort {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n'
 					  'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
 					  'rm {align_dir}/${{nam}}.bam\n'
 					  'done\n')
