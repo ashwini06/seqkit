@@ -51,7 +51,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
             template_b2b = sbatch_template + template_b2b
             with open(job_file, 'w') as jb_fl:
                 jb_fl.write(template_b2b.format(sam=sam, sam_dir=sam_dir, aligner=aligner))
-#           subprocess.check_call(['sbatch',job_file])
+            subprocess.check_call(['sbatch',job_file])
             job_file = None
 
 def run_align(project, aligner, sample, bam_to_bed):
@@ -69,9 +69,9 @@ def run_align(project, aligner, sample, bam_to_bed):
     elif aligner == "bowtie2":
         align_module = 'module load bowtie2/2.2.6\n'
         align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/Bowtie2Index/genome"
-        align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{fq}} -S {align_dir}/${{nam}}.sam 2> {align_dir}/${{nam}}_bowtie2.log\n'
-                        'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n'
-                        'rm {align_dir}/${{nam}}.sam\n')
+        align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{fq}} -S {align_dir}/${{nam}}.sam 2> {align_dir}/${{nam}}_bowtie2.log\n\n'
+                        'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n'
+                        'rm {align_dir}/${{nam}}.sam\n\n')
     
     align_template = ('#!/bin/bash -l\n'
                       '#SBATCH -A b2012025\n'
@@ -87,11 +87,11 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
                       'nm=$(basename ${{fq}})\n'
                       'nm=${{nm/_*/}}\n' 
-                      'nam="{sam}_"${{nm}}\n'
+                      'nam="{sam}_"${{nm}}\n\n'
                       +align_block+
-                      'samtools sort {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n'
+                      'samtools sort {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
-                      'rm {align_dir}/${{nam}}.bam\n'
+                      'rm {align_dir}/${{nam}}.bam\n\n'
                       'done\n')
 
     if sample:
@@ -114,5 +114,5 @@ def run_align(project, aligner, sample, bam_to_bed):
         with open(job_file, 'w') as jb_fl:
             jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir, align_dir=align_dir, align_index=align_index))
         if bam_to_bed:
-            run_b2b(project=project, aligner=aligner, slurm=True, samples=[sam], job_file=job_file)
-        #subprocess.check_call(['sbatch',job_file])
+            run_b2b(project=project, aligner=aligner, slurm=True, sample=sam, job_file=job_file)
+        subprocess.check_call(['sbatch',job_file])
