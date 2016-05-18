@@ -89,7 +89,7 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'nm=${{nm/_*/}}\n' 
                       'nam="{sam}_"${{nm}}\n\n'
                       +align_block+
-                      'samtools sort {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n\n'
+                      'samtools sort -T temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
                       'rm {align_dir}/${{nam}}.bam\n\n'
                       'done\n')
