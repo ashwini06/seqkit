@@ -30,7 +30,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
                    '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n')
         template_b2b = ('## run bam to bed\n'
                 'module load BEDTools/2.11.2\n'
-                'for bam in $(ls {sam_dir}/alignment_{aligner}/bam_files/*sorted.bam);do\n'
+                'for bam in $(ls --color=never {sam_dir}/alignment_{aligner}/bam_files/*sorted.bam);do\n'
                 'bed_fl=${{bam/.bam/.bed}}\n'
                 'bed_fl=${{bed_fl/bam_files/bedfiles}}\n'
                 'bed_uniq_fl=${{bed_fl/.bed/_uniq.bed}}\n'
@@ -83,7 +83,7 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'module load bioinfo-tools\n'
                       'module load samtools/1.3\n'
                       +align_module+
-                      'if [[ $(ls --color=never | grep -w {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
+                      'if [[ $(ls --color=never {sam_dir}/Rawdata/*.gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*.gz; fi\n'
                       'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
                       'nm=$(basename ${{fq}})\n'
                       'nm=${{nm/_*/}}\n' 

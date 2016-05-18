@@ -26,7 +26,6 @@ def run_peakcall(project, input_file, mode, peak_call):
             macs2_cmd = conf.get('macs2_TF','')
             template = ('## Running Peak-calling for TF-ChIP data\n'
                         ''+load_module+''
-                        'cd {peaks_dir}\n'
 			''+macs2_cmd+''
 		        )
         else:
