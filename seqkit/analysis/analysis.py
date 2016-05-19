@@ -35,7 +35,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
                 'bed_fl=${{bed_fl/bam_files/bedfiles}}\n'
                 'bed_uniq_fl=${{bed_fl/.bed/_uniq.bed}}\n'
                 'bamToBed -i ${{bam}} > ${{bed_fl}}\n'
-                'awk -F\\\\t -v \'OFS=\\t\' \'{{print chr$1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
+                'awk -F\\\\t -v \'OFS=\\t\' \'{{print "chr"$1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
                 'rm ${{bed_fl}}\n'
                 'done\n')
         sam_dir = os.path.join(proj_dir, sam)
