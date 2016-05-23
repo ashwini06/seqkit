@@ -25,7 +25,8 @@ def bamcov(project, genefile, sample = None):
                        'bamCoverage -b {ipfile} -o {outfile} -normalizeUsingRPKM=True --extendReads\n'
                        #'bamCompare -b1 treatment.bam -b2 control.bam -o log2ratio.bw\n'
                        'computeMatrix scale-regions -S {outfile} -R {ucsc_file} --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000 --skipZeros -o {matrix_fl} --outFileSortedRegions {sorted_fl}\n'
-                       'plotHeatmap -m {matrix_fl} -out {hmap}\n')
+                       #plotting heatmap
+                        'plotHeatmap -m {matrix_fl} -out {hmap}\n')
 
     if sample:
         if os.path.isdir(os.path.join(proj_dir, sample)):
