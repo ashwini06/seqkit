@@ -15,6 +15,8 @@ def run_qc(project):
                               '#SBATCH -J {sam}_fastqc\n'
                               '#SBATCH -p core -n 2 \n' 
                               '#SBATCH -t 2:00:00\n'
+                              '#SBATCH -e {sam_dir}/scripts/{sam}_fastqc.stderr\n'
+                              '#SBATCH -o {sam_dir}/scripts/{sam}_fastqc.stdout\n'
                               '#SBATCH --mail-type=FAIL\n'
                               '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                               'module load bioinfo-tools\n'
@@ -36,5 +38,5 @@ def run_qc(project):
         job_file = os.path.join(src_dir, "{}_fastqc.sh".format(sam))
         with open(job_file, 'w') as jb_fl:
             jb_fl.write(fastqc_sbatch_template.format(sam=sam, sam_dir=sam_dir,fastqc_dir=fastqc_dir, fq_files=" ".join(fq_fls)))
-        #subprocess.check_call(['sbatch',job_file])
+        subprocess.check_call(['sbatch',job_file])
 

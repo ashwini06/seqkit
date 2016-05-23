@@ -35,7 +35,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
                 'bed_fl=${{bed_fl/bam_files/bedfiles}}\n'
                 'bed_uniq_fl=${{bed_fl/.bed/_uniq.bed}}\n'
                 'bamToBed -i ${{bam}} > ${{bed_fl}}\n'
-                'awk -F\\\\t -v \'OFS=\\t\' \'{{print chr$1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
+                'awk -F\\\\t -v \'OFS=\\t\' \'{{print "chr"$1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
                 'rm ${{bed_fl}}\n'
                 'done\n')
         sam_dir = os.path.join(proj_dir, sam)
@@ -56,7 +56,6 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
 
 def run_align(project, aligner, sample, bam_to_bed):
     """Will run the preferred-alignment"""
-    run_b2b(project=project, aligner=aligner)
     root_dir = conf.get('root_dir','')
     proj_dir = os.path.join(root_dir, project)
     bed_dir = ''
@@ -80,16 +79,23 @@ def run_align(project, aligner, sample, bam_to_bed):
                       '#SBATCH -t 10:00:00\n'
                       '#SBATCH --mail-type=FAIL\n'
                       '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
+                      '#SBATCH -e {sam_dir}/scripts/{sam}_align.stderr\n'
+                      '#SBATCH -o {sam_dir}/scripts/{sam}_align.stdout\n'
                       'module load bioinfo-tools\n'
                       'module load samtools/1.3\n'
                       +align_module+
+<<<<<<< HEAD
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*.gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*.gz; fi\n'
+=======
+                      'if [[ $(ls --color=never {sam_dir}/Rawdata/*zip | wc -l) -gt 0 ]]; then unzip {sam_dir}/Rawdata/*zip; fi\n'
+                      'if [[ $(ls --color=never {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
+>>>>>>> test
                       'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
                       'nm=$(basename ${{fq}})\n'
                       'nm=${{nm/_*/}}\n' 
                       'nam="{sam}_"${{nm}}\n\n'
                       +align_block+
-                      'samtools sort {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n\n'
+                      'samtools sort -T temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
                       'rm {align_dir}/${{nam}}.bam\n\n'
                       'done\n')

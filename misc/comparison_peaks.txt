@@ -1,0 +1,2 @@
+Treatment	Control
+Foxa2_11_3_13	IgG_11_3_13
