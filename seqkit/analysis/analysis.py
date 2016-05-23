@@ -56,7 +56,6 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
 
 def run_align(project, aligner, sample, bam_to_bed):
     """Will run the preferred-alignment"""
-    run_b2b(project=project, aligner=aligner)
     root_dir = conf.get('root_dir','')
     proj_dir = os.path.join(root_dir, project)
     bed_dir = ''
@@ -85,7 +84,7 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'module load bioinfo-tools\n'
                       'module load samtools/1.3\n'
                       +align_module+
-                      'if [[ $(ls --color=never {sam_dir}/Rawdata/*zip | wc -l) -gt 0 ]]; then unzip {sam_dir}/Rawdata/*zip && rm -rf {sam_dir}/Rawdata/*zip ; fi\n'
+                      'if [[ $(ls --color=never {sam_dir}/Rawdata/*zip | wc -l) -gt 0 ]]; then unzip {sam_dir}/Rawdata/*zip; fi\n'
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
                       'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
                       'nm=$(basename ${{fq}})\n'
