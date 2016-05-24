@@ -54,6 +54,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
             subprocess.check_call(['sbatch',job_file])
             job_file = None
 
+
 def run_align(project, aligner, sample, bam_to_bed):
     """Will run the preferred-alignment"""
     root_dir = conf.get('root_dir','')
@@ -71,6 +72,13 @@ def run_align(project, aligner, sample, bam_to_bed):
         align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{fq}} -S {align_dir}/${{nam}}.sam 2> {align_dir}/${{nam}}_bowtie2.log\n\n'
                         'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n'
                         'rm {align_dir}/${{nam}}.sam\n\n')
+    elif aligner == "bowtie":
+        align_module = 'module load bowtie/1.1.2\n'
+        align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/BowtieIndex/genome"
+        align_block =  ('bowtie -q -m 1 -v 3 --best --strata {align_index} ${{fq}} -S {align_dir}/${{nam}}.sam 2>{align_dir}/${{nam}}_bowtie.log\n\n'
+                        'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n'
+                        'rm {align_dir}/${{nam}}.sam\n\n')
+
     
     align_template = ('#!/bin/bash -l\n'
                       '#SBATCH -A b2012025\n'
@@ -93,6 +101,8 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'nam="{sam}_"${{nm}}\n\n'
                       ''+align_block+''
                       'samtools sort -T temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
+                      'java -jar /pica/sw/apps/bioinfo/picard/1.92/milou/MarkDuplicates.jar INPUT={align_dir}/${{nam}}_sorted.bam OUTPUT={align_dir}/${{nam}}_sorted_rmdup.bam METRICS_FILE={align_dir}/${{nam}}_picardmetrics.txt REMOVE_DUPLICATES=True\n'
+                      'samtools index {align_dir}/${{nam}}_sorted_rmdup.bam\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
                       'rm {align_dir}/${{nam}}.bam\n\n'
                       'done\n')
