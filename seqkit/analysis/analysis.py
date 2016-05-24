@@ -83,18 +83,15 @@ def run_align(project, aligner, sample, bam_to_bed):
                       '#SBATCH -o {sam_dir}/scripts/{sam}_align.stdout\n'
                       'module load bioinfo-tools\n'
                       'module load samtools/1.3\n'
-                      +align_module+
-<<<<<<< HEAD
+                      ''+align_module+''
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*.gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*.gz; fi\n'
-=======
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*zip | wc -l) -gt 0 ]]; then unzip {sam_dir}/Rawdata/*zip; fi\n'
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n'
->>>>>>> test
                       'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
                       'nm=$(basename ${{fq}})\n'
                       'nm=${{nm/_*/}}\n' 
                       'nam="{sam}_"${{nm}}\n\n'
-                      +align_block+
+                      ''+align_block+''
                       'samtools sort -T temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
                       'rm {align_dir}/${{nam}}.bam\n\n'

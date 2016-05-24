@@ -21,13 +21,12 @@ def run_qc(project):
                               '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                               'module load bioinfo-tools\n'
                               'module load FastQC/0.11.5\n'
-                  'cd '+proj_dir+'\n'
-                  'fastqc -o {fastqc_dir} -f fastq {fq_files}\n'
-                              )
+                              'cd '+proj_dir+'\n'
+                              'fastqc -o {fastqc_dir} -f fastq {fq_files}\n')
     samples = find_samples(proj_dir,file_type="fastq")
     for sam in samples.keys():
         fq_fls = samples[sam]
-    #    pdb.set_trace()
+        pdb.set_trace()
         sam_dir = os.path.join(proj_dir, sam)
         src_dir = os.path.join(sam_dir, 'scripts')
         if not os.path.exists(src_dir):
