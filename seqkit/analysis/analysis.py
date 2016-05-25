@@ -83,7 +83,7 @@ def run_align(project, aligner, sample, bam_to_bed):
     align_template = ('#!/bin/bash -l\n'
                       '#SBATCH -A b2012025\n'
                       '#SBATCH -J {sam}_align\n'
-                      '#SBATCH -p core -n 2 \n' 
+                      '#SBATCH -p core -n 3 \n' 
                       '#SBATCH -t 10:00:00\n'
                       '#SBATCH --mail-type=FAIL\n'
                       '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
