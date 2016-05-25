@@ -1,2 +1,3 @@
-Treatment	Control
-Foxa2_11_3_13	IgG_11_3_13
+Treatment   Control
+Foxa2_140807_wt2_d6 Foxa2_140807_foxa2ko2_d6
+Foxa2_140808_wt2_d3_5 Foxa2_140808_foxa2ko2_d3_5
