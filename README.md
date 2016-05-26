@@ -13,5 +13,6 @@ Command-line usage
 or download zip[https://github.com/ashwini06/seqkit']
 
 `cd seqkit`
+
 `python setup.py install`
 
