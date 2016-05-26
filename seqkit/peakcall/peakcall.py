@@ -38,8 +38,8 @@ def run_peakcall(project, input_file, mode, peak_call):
                         ''+macs2_cmd+'')
     
         elif peak_call == "danpos2":
-            danpos_path = "export danpos2 path"
-            danpos_cmd = ('python danpos.py dpeak ${treatment} -b ${control}')
+            danpos_path = "cd /home/ashwini/softwares/danpos-2.2.2"
+            danpos_cmd = conf.get('danpos2_dpeak','')
             template = ('# Running danpos2 peakcalling for HM data\n'
                         ''+danpos_cmd+'')
         else:
