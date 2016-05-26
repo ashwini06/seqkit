@@ -29,3 +29,6 @@ or download [zip](https://github.com/ashwini06/seqkit/archive/master.zip)
 `python setup.py install`
 
 Done.
+
+### Documentation 
+Writing Up
