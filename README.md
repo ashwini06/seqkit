@@ -10,7 +10,7 @@ Command-line usage
  
 
 `git clone https://github.com/ashwini06/seqkit`
-or download zip[https://github.com/ashwini06/seqkit']
+or download zip[https://github.com/ashwini06/seqkit/archive/master.zip]
 
 `cd seqkit`
 
