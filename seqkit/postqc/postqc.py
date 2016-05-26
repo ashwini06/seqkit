@@ -36,8 +36,8 @@ def bamcov(project, genefile, input_file):
         treat = ln[0]
         ctrl = ln[1]
         name = "{}_Vs_{}".format(treat,ctrl)
-        treat_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*rmdup.bam".format(proj_dir,treat,treat)))
-        control_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*rmdup.bam".format(proj_dir,ctrl,ctrl)))
+        treat_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted.bam".format(proj_dir,treat,treat)))
+        control_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted.bam".format(proj_dir,ctrl,ctrl)))
         postqc_dir = os.path.join(proj_dir,treat,"deepTools")
         if not os.path.exists(postqc_dir):
             os.mkdir(postqc_dir)
