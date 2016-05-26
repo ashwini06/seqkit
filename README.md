@@ -22,7 +22,7 @@ Details on the installation routines can be found here.
 
 Commands:
 `git clone https://github.com/ashwini06/seqkit`
-or download zip[https://github.com/ashwini06/seqkit/archive/master.zip]
+or download [zip](https://github.com/ashwini06/seqkit/archive/master.zip)
 
 `cd seqkit`
 
