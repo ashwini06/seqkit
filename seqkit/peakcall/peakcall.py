@@ -17,8 +17,8 @@ def run_peakcall(project, input_file, mode, peak_call):
                        '#SBATCH -J {name}_peakcall\n'
                        '#SBATCH -p core -n 1 \n'
                        '#SBATCH -t 5:00:00\n'
-                       '#SBATCH -o '+proj_dir+'/{treatment}/scripts/{name}_peakcall.stdout\n'
-                       '#SBATCH -e '+proj_dir+'/{treatment}/scripts/{name}_peakcall.stderr\n'
+                       '#SBATCH -o '+proj_dir+'/{treat}/scripts/{name}_peakcall.stdout\n'
+                       '#SBATCH -e '+proj_dir+'/{treat}/scripts/{name}_peakcall.stderr\n'
                        '#SBATCH --mail-type=FAIL\n'
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
@@ -61,10 +61,10 @@ def run_peakcall(project, input_file, mode, peak_call):
 	treat_fl = ''.join(glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,treat,treat)))
 	control_fl = ''.join(glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,ctrl,ctrl)))
         peaks_dir = os.path.join(proj_dir,treat,"{}_{}".format(peak_call,mode))
-        if not peaks_dir:
-            os.mkdir(peaks_dir)
+        if not os.path.exists(peaks_dir):
+            os.makedirs(peaks_dir)
         job_fl = os.path.join(proj_dir,treat,"scripts","{}_peakcall.sh".format(name))
         template_pc = sbatch_template + template
         with open(job_fl,'w') as jb_fl:
-            jb_fl.write(template_pc.format(name=name, treatment=treat_fl, control=control_fl,peaks_dir=peaks_dir))
+            jb_fl.write(template_pc.format(name=name,treat=treat, treatment=treat_fl, control=control_fl,peaks_dir=peaks_dir))
 	subprocess.check_call(['sbatch',job_fl]) 
