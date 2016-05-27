@@ -22,7 +22,7 @@ def align(ctx, project, aligner, sample, bam_to_bed):
 
 @analysis.command()
 @click.option('-p','--project',required=True, type=click.STRING,help='project to perform bam2bed conversion')
-@click.option('-a','--aligner', default='bowtie2',type=click.STRING,help='which aligner was used to align, default is "bowtie2"')
+@click.option('-a','--aligner', default='bowtie',type=click.STRING,help='which aligner was used to align, default is "bowtie"')
 @click.option('--slurm', is_flag=True, help='Run the conversion as slurm jobs')
 @click.option('-s','--sample',type=click.STRING,help='Sample to run')
 @click.pass_context

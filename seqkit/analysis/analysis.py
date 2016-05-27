@@ -30,7 +30,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
                    '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n')
         template_b2b = ('## run bam to bed\n'
                 'module load BEDTools/2.11.2\n'
-                'for bam in $(ls --color=never {sam_dir}/alignment_{aligner}/bam_files/*sorted.bam);do\n'
+                'for bam in $(ls --color=never {sam_dir}/alignment_{aligner}/bam_files/*sorted_rmdup.bam);do\n'
                 'bed_fl=${{bam/.bam/.bed}}\n'
                 'bed_fl=${{bed_fl/bam_files/bedfiles}}\n'
                 'bed_uniq_fl=${{bed_fl/.bed/_uniq.bed}}\n'
