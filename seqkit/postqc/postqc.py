@@ -36,8 +36,8 @@ def bamcov(project, genefile, input_file):
         treat = ln[0]
         ctrl = ln[1]
         name = "{}_Vs_{}".format(treat,ctrl)
-        treat_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted.bam".format(proj_dir,treat,treat)))
-        control_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted.bam".format(proj_dir,ctrl,ctrl)))
+        treat_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,treat,treat)))
+        control_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,ctrl,ctrl)))
         postqc_dir = os.path.join(proj_dir,treat,"deepTools")
         if not os.path.exists(postqc_dir):
             os.mkdir(postqc_dir)
@@ -56,6 +56,6 @@ def bamcov(project, genefile, input_file):
         job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
         with open(job_file, 'w') as jb_fl:
             jb_fl.write(sbatch_template.format(treat=treat,name=name,treatment=treat_fl, control=control_fl,outfile=op_fl,matrix_fl=matrix_fl, sorted_fl=sorted_fl,hmap=hmap, ucsc_file=ucsc_file))
-   #     subprocess.check_call(['sbatch',job_file])
+        subprocess.check_call(['sbatch',job_file])
 
 
