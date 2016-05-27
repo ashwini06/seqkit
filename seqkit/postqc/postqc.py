@@ -17,6 +17,7 @@ def bamcov(project, genefile, input_file):
                        '#SBATCH -p core -n 1 \n'
                        '#SBATCH -t 4:00:00\n'
                        '#SBATCH -e '+proj_dir+'/{treat}/scripts/{name}_postqc.stderr\n'
+                       '#SBATCH -o '+proj_dir+'/{treat}/scripts/{name}_postqc.stdout\n'
                        '#SBATCH --mail-type=FAIL\n'
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
