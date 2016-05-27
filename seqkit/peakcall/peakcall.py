@@ -17,6 +17,8 @@ def run_peakcall(project, input_file, mode, peak_call):
                        '#SBATCH -J {name}_peakcall\n'
                        '#SBATCH -p core -n 1 \n'
                        '#SBATCH -t 5:00:00\n'
+                       '#SBATCH -o '+proj_dir+'/{treatment}/scripts/{name}_peakcall.stdout\n'
+                       '#SBATCH -e '+proj_dir+'/{treatment}/scripts/{name}_peakcall.stderr\n'
                        '#SBATCH --mail-type=FAIL\n'
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
