@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """ Methods and functionalites to perform peak-calling """
 import os
-import pdb
+import subprocess
 from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
@@ -56,13 +56,13 @@ def run_peakcall(project, input_file, mode, peak_call):
         treat = ln[0]
         ctrl = ln[1]
         name = "{}_Vs_{}".format(treat,ctrl)
-	treat_fl = ''.join(glob("{}/{}/alignment_*/bedfiles/{}*uniq.bed".format(proj_dir,treat,treat)))
-	control_fl = ''.join(glob("{}/{}/alignment_*/bedfiles/{}*uniq.bed".format(proj_dir,ctrl,ctrl)))
+	treat_fl = ''.join(glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,treat,treat)))
+	control_fl = ''.join(glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,ctrl,ctrl)))
         peaks_dir = os.path.join(proj_dir,treat,"{}_{}".format(peak_call,mode))
         if not peaks_dir:
             os.mkdir(peaks_dir)
-        jb_fl = os.path.join(proj_dir,treat,"scripts","{}_peakcall.sh".format(name))
-       # pdb.set_trace()
+        job_fl = os.path.join(proj_dir,treat,"scripts","{}_peakcall.sh".format(name))
         template_pc = sbatch_template + template
-        with open(jb_fl,'w') as jb_fl:
+        with open(job_fl,'w') as jb_fl:
             jb_fl.write(template_pc.format(name=name, treatment=treat_fl, control=control_fl,peaks_dir=peaks_dir))
+	subprocess.check_call(['sbatch',job_fl]) 
