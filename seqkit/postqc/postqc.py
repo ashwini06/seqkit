@@ -14,16 +14,17 @@ def bamcov(project, genefile, input_file):
     sbatch_template = ('#!/bin/bash -l\n'
                        '#SBATCH -A b2012025\n'
                        '#SBATCH -J {name}_postqc\n'
-                       '#SBATCH -p core -n 1 \n'
+                       '#SBATCH -p core -n 2 \n'
                        '#SBATCH -t 4:00:00\n'
                        '#SBATCH -e '+proj_dir+'/{treat}/scripts/{name}_postqc.stderr\n'
                        '#SBATCH -o '+proj_dir+'/{treat}/scripts/{name}_postqc.stdout\n'
                        '#SBATCH --mail-type=FAIL\n'
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
-                       'module load deepTools/2.0.1\n'
-                       'bamCompare -b1 {treatment} -b2 {control} -o {outfile}\n'
-                       'computeMatrix scale-regions -S {outfile} -R {ucsc_file} --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000 --skipZeros -o {matrix_fl} --outFileSortedRegions {sorted_fl}\n'
+                       'module load deepTools/2.0.1\n\n'
+                       'bamCompare -b1 {treatment} -b2 {control} -o {outfile}\n\n'
+                       'computeMatrix scale-regions --regionsFileName {ucsc_file} --scoreFileName {outfile} --upstream 1000 --downstream 1000 --regionBodyLength 1000 --binSize 1 --sortRegions no --sortUsing mean --averageTypeBins mean --outFileName {matrix_fl}\n\n'
+                       ##'computeMatrix scale-regions -S {outfile} -R {ucsc_file} --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000 --skipZeros -o {matrix_fl} --outFileSortedRegions {sorted_fl}\n'
                        #plotting heatmap
                         'plotHeatmap -m {matrix_fl} -out {hmap}\n')
 
