@@ -62,14 +62,12 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
-
-
-
-*-p / --project* : project folder name
-
-*-s/ --sample* : (optional) to run on specific samples inside project folder
-
-*--bamtobed* : (optional) to generate bed files
+>| Command | Expected Input | Explanation |
+|:----:|:----:|:----|
+| -p/--project | FILENAME	| Path to the project folder |
+| -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
+|--bamtobed | *(optional)*|   to generate bed files |
+|--peak_call| macs2/danpos2|macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM) |
 
 **(Outputs : (by default))**
 
@@ -107,14 +105,6 @@ danpos2 might work well so included danpos2 option for HM data.
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
 |-m/--mode | TF/HM |  TF chip or Histone modification (default is TF) |
 |--peak_call| macs2/danpos2|macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM) |
-
-*-p / --project* : Project folder
-
-*-i / --input* : Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control)
-
-*-m / --mode* : TF chip or Histone modification (default is TF)
-
-*--peak_call* : macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM)
 
 **Outputs**
 
