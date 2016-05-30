@@ -6,7 +6,8 @@ In the home directory create the folder *.seqkit* and place [*seqkit.yaml*](http
 Edit the root dir path in *seqkit.yaml*
 
 It should point to the path one level up where all the data folders are present
-Eg : `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
+
+Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
 
 
 To run seqkit we need some folder rearrangements for placing the rawdata files. [Folder structure](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf)
