@@ -1,4 +1,4 @@
-root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"
+root_dir: "/proj/b2012025/RAW_DATA/ChIP_Data"
 macs2_TF: "macs2 callpeak -t {treatment} -c {control} -n {name} -g mm -f BED -p 0.001 --outdir {peaks_dir} 2>{peaks_dir}/{name}_macs2_TF.log\n"
 macs2_HM: "macs2 callpeak -t {treatment} -c {control} -n {name} -g mm -f BED --outdir {peaks_dir} --broad --broad-cutoff 0.1 2> {peaks_dir}/{name}_macs2_HM.log\n"
 danpos2_dregion: ""
