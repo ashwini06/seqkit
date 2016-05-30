@@ -30,5 +30,4 @@ or download [zip](https://github.com/ashwini06/seqkit/archive/master.zip)
 
 Done.
 
-### Documentation 
-Writing Up
+### [Link to Documentation](https://github.com/ashwini06/seqkit/blob/master/misc/Documentation.md#setup-requirements)
