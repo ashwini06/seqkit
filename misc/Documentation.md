@@ -17,7 +17,9 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 `seqkit  --help`
 
 [Aligning and running bam-to-bed (default runs bowtie)](#align)
+
 [Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
+
 [Post-QC for analysis](#postqc)
 
 
