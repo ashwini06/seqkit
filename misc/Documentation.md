@@ -75,11 +75,14 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 +   Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
 */project_dir/sample_folder/alignment_bowtie/bam_files*
-+ Mark_input_s3_Markinput_bowtie2.log 
-+ Mark_input_s3_Markinput_sorted.bam.bai
-- Mark_input_s3_Markinput_sorted.bam
++ *_bowtie2.log 
++ *_sorted.bam.bai
+- *_sorted.bam
+- *_sorted_rmdup.bam
+- *_sorted_rmdup.bam.bai
 
 */project_dir/sample_folder/alignment_bowtie/bedfiles*
+ + *uniq.bed
 
 <a name="Peak-call"/></a>
 
