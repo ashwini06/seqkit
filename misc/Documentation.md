@@ -10,11 +10,11 @@ It should point to the path one level up where all the data folders are present
 Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
 
 
-To run seqkit we need some folder rearrangements for placing the rawdata files. [Folder structure](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf)
-Sample folder are placed under Project folder and inside each sample folder should contain Rawdata folder and sample folder should contain fastq or fastq.gz files.
+To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf) structure. 
 
-seqkit  --help
-Gives the available methods in seqkit
+ **Available functions in seqkit**
+`seqkit  --help`
+
 
 Aligning and running bam-to-bed (default runs bowtie)
 Picard tools is added up to estimate the quality metrics and remove the duplicates from aligned bam files.
