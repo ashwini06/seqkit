@@ -101,11 +101,12 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Inputs**
 
-
->##### only for _BED-file_ mode:
 >| Command | Expected Input | Explanation |
 |:----:|:----:|:----|
-| --BED | FILENAME	| *If* the comparison of read counts should be limited to certain regions, a [BED][] file can be given. If this is the case, then the correlation is computed for the number of reads that overlap such regions. (default: None) |
+| -p/--project | FILENAME	| Path to the project folder |
+| -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
+|-m/--mode | TF/HM |  TF chip or Histone modification (default is TF) |
+|--peak_call| macs2/danpos2|macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM) |
 
 *-p / --project* : Project folder
 
