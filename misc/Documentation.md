@@ -63,6 +63,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 *--bamtobed* : (optional) to generate bed files
 
 **(Outputs : (by default))**
+
 Creates _(alignment_(aligner))_ folder in the project specific folder
 Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
@@ -104,7 +105,6 @@ danpos2 might work well so included danpos2 option for HM data.
 ### Post-QC for analysis
 
 DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
-
 Incoporated _bamcompare_,_computeMatrix_,_plotHeatmap_ functions from *deepTools*.
 
 **Command-line**
