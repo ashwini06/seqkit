@@ -2,8 +2,8 @@
 
 ### Initial setups
 
-In the home directory create the folder .seqkit and place seqkit.yaml (configuration file) inside .seqkit folder
-/home/ashwini/.seqkit/seqkit.yaml
+In the home directory create the folder .seqkit and place [seqkit.yaml](https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml) (configuration file) inside .seqkit folder
+
 
 Edit the root dir path in seqkit.yaml:
 It should point to the path one level up where all the data folders are present
