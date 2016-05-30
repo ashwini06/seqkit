@@ -96,7 +96,7 @@ Incoporated _bamcompare_,_computeMatrix_,_plotHeatmap_ functions from *deepTools
 
 **Command-line**
 
-seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes_v2.bed 
+`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes_v2.bed`
 
 **Inputs**
 
