@@ -26,27 +26,32 @@ For further steps in seqkit, duplicates removed bam files are used .
 
 `seqkit analysis align -p Ascl1_US --bam_to_bed`
 
-**`--bam_to_bed` (Optional)**  Bed files are input to the peak calling software (macs2/danpos2).
+*`--bam_to_bed` (Optional)*  Bed files are input to the peak calling software (macs2/danpos2).
 
-So bed files can be generated while aligning the reads by adding extra option --bam_to_bed.
+So bed files can be generated while aligning the reads by adding extra option *--bam_to_bed*.
 
 Also, the above can independently run (in case if we dont to generate *bed files* 
-
 or if we want to run generate *bed files* from already existed *aligned reads*)
 
+**Command-line**
 
 `seqkit analysis align -p Ascl1_US ` (Doesnt generate bed files)
 
 `seqkit analysis bamtobed -p Ascl1_US --slurm` (Generates bed files from already existed files)
 
 **To run on specific samples (s) present in the project folder (-p)**
+
 `seqkit analysis align -p Ascl1_US --bam_to_bed -s Mark_Mash1_s4`
+
 `seqkit analysis align -p Ascl1_US --bam_to_bed -s Mark_input_s3`
 
 
 **Inputs**
+
 *-p / --project* : project folder name
+
 *-s/ --sample* : (optional) to run on specific samples inside project folder
+
 *--bamtobed* : (optional) to generate bed files
 
 ** Outputs : (by default)**
@@ -54,6 +59,7 @@ Creates _(alignment_(aligner))_ folder in the project specific folder
 Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
 */project_dir/sample_folder/alignment_bowtie/bam_files*
+
 Mark_input_s3_Markinput_bowtie2.log 
 Mark_input_s3_Markinput_sorted.bam.bai
 Mark_input_s3_Markinput_sorted.bam
@@ -61,27 +67,37 @@ Mark_input_s3_Markinput_sorted.bam
 */project_dir/sample_folder/alignment_bowtie/bedfiles*
 
 
+### Peak-calling (either in TF or HM mode: macs2/danpos2)
 
-Peak-calling (either in TF or HM mode: macs2/danpos2)
-For TF chip the macs2 is working well to call the enriched regions.
+For _TF chip_ the macs2 is working well to call the enriched regions.
 Whereas for some of the broad marks, macs2 doesn't work well in calling the enriched regions .
-However it calls the regions but it is small segmental peaks.
-Other people suggested that danpos2 might work well so included danpos2 option for HM data.
+However it calls the regions but it is divided into small segmental peaks.
+danpos2 might work well so included danpos2 option for HM data.
 
-Inputs:
+**Command-line**
 
--p / --project : Project folder
--i / --input : Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control)
--m / --mode : TF chip or Histone modification (default is TF)
---peak_call : macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM)
+`seqkit peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
 
-Outputs:
-seqkit peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt
+**Inputs**
 
-Post-QC for analysis
+*-p / --project* : Project folder
+*-i / --input* : Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control)
+*-m / --mode* : TF chip or Histone modification (default is TF)
+*--peak_call* : macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM)
+
+**Outputs**
+
+
+
+### Post-QC for analysis
+
 DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
-Incoporated bamcompare,computeMatrix,plotHeatmap functions from deepTools.
+Incoporated _bamcompare_,_computeMatrix_,_plotHeatmap_ functions from *deepTools*.
 
-Inputs
+**Command-line**
 
 seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes_v2.bed 
+
+**Inputs**
+
+
