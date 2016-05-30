@@ -12,7 +12,7 @@ Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
 
 To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf) structure. 
 
- ##  Available functions in seqkit
+### Available functions in seqkit
  
 `seqkit  --help`
 
@@ -75,6 +75,7 @@ Mark_input_s3_Markinput_sorted.bam
 */project_dir/sample_folder/alignment_bowtie/bedfiles*
 
 <a name="Peak-call"/></a>
+
 ### Peak-calling (either in TF or HM mode: macs2/danpos2)
 
 For _TF chip_ the macs2 is working well to call the enriched regions.
@@ -89,8 +90,11 @@ danpos2 might work well so included danpos2 option for HM data.
 **Inputs**
 
 *-p / --project* : Project folder
+
 *-i / --input* : Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control)
+
 *-m / --mode* : TF chip or Histone modification (default is TF)
+
 *--peak_call* : macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM)
 
 **Outputs**
@@ -100,6 +104,7 @@ danpos2 might work well so included danpos2 option for HM data.
 ### Post-QC for analysis
 
 DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
+
 Incoporated _bamcompare_,_computeMatrix_,_plotHeatmap_ functions from *deepTools*.
 
 **Command-line**
