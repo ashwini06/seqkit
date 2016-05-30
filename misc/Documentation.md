@@ -54,7 +54,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 *--bamtobed* : (optional) to generate bed files
 
-** Outputs : (by default)**
+**(Outputs : (by default))**
 Creates _(alignment_(aligner))_ folder in the project specific folder
 Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
