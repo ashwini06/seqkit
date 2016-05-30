@@ -22,6 +22,12 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 
 [Post-QC for analysis](#postqc)
 
+[Runing Tophat, Cufflinks](#none)
+
+[Running htSeq-Count] (#none)
+
+
+
 
 <a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
