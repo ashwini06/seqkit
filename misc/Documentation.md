@@ -36,7 +36,7 @@ For further steps in seqkit, duplicates removed bam files are used .
 
 *`--bam_to_bed` (Optional)*  Bed files are input to the peak calling software (macs2/danpos2).
 
-So bed files can be generated while aligning the reads by adding extra option *--bam_to_bed*.
+So bed files can be generated while aligning the reads by adding an extra option *--bam_to_bed*.
 
 Also, the above can independently run (in case if we dont to generate *bed files* 
 or if we want to run generate *bed files* from already existed *aligned reads*)
