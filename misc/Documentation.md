@@ -15,7 +15,12 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
  ## Available functions in seqkit
  
 `seqkit  --help`
+[Aligning and running bam-to-bed (default runs bowtie)](#align)
 
+
+
+
+<a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
 
 *Picard tools* is incorporated into _seqkit_ to estimate the quality metrics and remove the duplicates from aligned bam files.
