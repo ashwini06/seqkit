@@ -30,9 +30,13 @@ For further steps in seqkit, duplicates removed bam files are used .
 
 So bed files can be generated while aligning the reads by adding extra option --bam_to_bed.
 
-Also, the above can independently run (in case if we dont to generate *bed files* or if we want to run generate *bed files* from already existed *aligned reads*)
+Also, the above can independently run (in case if we dont to generate *bed files* 
+
+or if we want to run generate *bed files* from already existed *aligned reads*)
+
 
 `seqkit analysis align -p Ascl1_US ` (Doesnt generate bed files)
+
 `seqkit analysis bamtobed -p Ascl1_US --slurm` (Generates bed files from already existed files)
 
 **To run on specific samples (s) present in the project folder (-p)**
