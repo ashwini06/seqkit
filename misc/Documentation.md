@@ -71,8 +71,8 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Outputs files**
 
-+ __Creates alignment_(aligner) folder in the project specific folder __
-+ __Creates seperate folder for _(bam_files)_ and _(bedfiles)_ __
++ Creates alignment_(aligner) folder in the project specific folder 
++ Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
 */project_dir/sample_folder/alignment_bowtie/bam_files*
 
