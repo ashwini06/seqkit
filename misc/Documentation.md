@@ -10,8 +10,7 @@ It should point to the path one level up where all the data folders are present
 root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"
 
 
-To run seqkit we need some folder rearrangements for placing the rawdata files.
-https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf
+To run seqkit we need some folder rearrangements for placing the rawdata files. [Folder structure](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf)
 Sample folder are placed under Project folder and inside each sample folder should contain Rawdata folder and sample folder should contain fastq or fastq.gz files.
 
 seqkit  --help
