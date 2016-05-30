@@ -62,6 +62,9 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
+
+
+
 *-p / --project* : project folder name
 
 *-s/ --sample* : (optional) to run on specific samples inside project folder
@@ -97,6 +100,12 @@ danpos2 might work well so included danpos2 option for HM data.
 `seqkit peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
 
 **Inputs**
+
+
+>##### only for _BED-file_ mode:
+>| Command | Expected Input | Explanation |
+|:----:|:----:|:----|
+| --BED | FILENAME	| *If* the comparison of read counts should be limited to certain regions, a [BED][] file can be given. If this is the case, then the correlation is computed for the number of reads that overlap such regions. (default: None) |
 
 *-p / --project* : Project folder
 
