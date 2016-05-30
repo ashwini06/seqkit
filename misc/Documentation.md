@@ -75,7 +75,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 +   Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
 */project_dir/sample_folder/alignment_bowtie/bam_files*
-..* *_bowtie2.log 
+..* (*_bowtie2.log) 
 ..* *_sorted.bam.bai
 ..* *_sorted.bam
 ..* *_sorted_rmdup.bam
