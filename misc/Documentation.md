@@ -67,7 +67,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
 |--bamtobed | *(optional)*|   to generate bed files |
-|--peak_call| macs2/danpos2|macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM) |
+
 
 **(Outputs : (by default))**
 
