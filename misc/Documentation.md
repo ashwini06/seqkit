@@ -12,47 +12,47 @@ Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
 
 To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf) structure. 
 
- **Available functions in seqkit**
+ ## Available functions in seqkit
  
 `seqkit  --help`
 
-**Aligning and running bam-to-bed (default runs bowtie)**
+### Aligning and running bam-to-bed (default runs bowtie)**
 
 *Picard tools* is incorporated into _seqkit_ to estimate the quality metrics and remove the duplicates from aligned bam files.
-However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the alignment_(aligner) folder.
-For further steps, duplicates removed bam files are used .
+However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the _(alignment_*)_ folder.
+For further steps in seqkit, duplicates removed bam files are used .
 
-To run on all samples present in the project folder (-p)
-seqkit analysis align -p Ascl1_US --bam_to_bed
+** To run on all samples present in the project folder (-p)** 
+`seqkit analysis align -p Ascl1_US --bam_to_bed`
 
---bam_to_bed (Optional) : Bed files are input to the peak calling software (macs2/danpos2).
+**`--bam_to_bed` (Optional)**  Bed files are input to the peak calling software (macs2/danpos2).
 So bed files can be generated while aligning the reads by adding extra option --bam_to_bed.
 
-Also, the above can independently run (in case if we dont to generate bed files or if we want to run generate bed files from already existed aligned reads)
+Also, the above can independently run (in case if we dont to generate *bed files* or if we want to run generate *bed files* from already existed *aligned reads*)
 
-seqkit analysis align -p Ascl1_US  (Doesnt generate bed files)
-seqkit analysis bamtobed -p Ascl1_US --slurm (Generates bed files from already existed files)
+`seqkit analysis align -p Ascl1_US ` (Doesnt generate bed files)
+`seqkit analysis bamtobed -p Ascl1_US --slurm` (Generates bed files from already existed files)
 
-To run on specific samples (s) present in the project folder (-p)
-seqkit analysis align -p Ascl1_US --bam_to_bed -s Mark_Mash1_s4
-seqkit analysis align -p Ascl1_US --bam_to_bed -s Mark_input_s3
+** To run on specific samples (s) present in the project folder (-p)**
+`seqkit analysis align -p Ascl1_US --bam_to_bed -s Mark_Mash1_s4`
+`seqkit analysis align -p Ascl1_US --bam_to_bed -s Mark_input_s3`
 
 
-Inputs
--p / --project : project folder name
--s/ --sample : (optional) to run on specific samples inside project folder
---bamtobed : (optional) to generate bed files
+**Inputs**
+*-p / --project* : project folder name
+*-s/ --sample* : (optional) to run on specific samples inside project folder
+*--bamtobed* : (optional) to generate bed files
 
-Outputs : (by default)
-Creates alignment_(aligner) folder in the project specific folder
-Creates seperate folder for bam_files and bedfiles
+** Outputs : (by default)**
+Creates _(alignment_(aligner))_ folder in the project specific folder
+Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 
-/project_dir/sample_folder/alignment_bowtie/bam_files:
+*/project_dir/sample_folder/alignment_bowtie/bam_files*
 Mark_input_s3_Markinput_bowtie2.log 
 Mark_input_s3_Markinput_sorted.bam.bai
 Mark_input_s3_Markinput_sorted.bam
 
-/project_dir/sample_folder/alignment_bowtie/bedfiles:
+*/project_dir/sample_folder/alignment_bowtie/bedfiles*
 
 
 
