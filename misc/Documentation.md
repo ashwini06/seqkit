@@ -17,11 +17,11 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 `seqkit  --help`
 
 [Aligning and running bam-to-bed (default runs bowtie)](#align)
+[Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
+[Post-QC for analysis](#postqc)
 
 
-
-
-<a name="align"/>
+<a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
 
 *Picard tools* is incorporated into _seqkit_ to estimate the quality metrics and remove the duplicates from aligned bam files.
@@ -71,8 +71,8 @@ Mark_input_s3_Markinput_sorted.bam.bai
 Mark_input_s3_Markinput_sorted.bam
 
 */project_dir/sample_folder/alignment_bowtie/bedfiles*
-</a>
 
+<a name="Peak-call"/></a>
 ### Peak-calling (either in TF or HM mode: macs2/danpos2)
 
 For _TF chip_ the macs2 is working well to call the enriched regions.
@@ -94,7 +94,7 @@ danpos2 might work well so included danpos2 option for HM data.
 **Outputs**
 
 
-
+<a name="postqc"/></a>
 ### Post-QC for analysis
 
 DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
