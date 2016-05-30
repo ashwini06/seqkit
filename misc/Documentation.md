@@ -13,10 +13,10 @@ Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
 To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf) structure. 
 
  **Available functions in seqkit**
+ 
 `seqkit  --help`
 
-
-Aligning and running bam-to-bed (default runs bowtie)
+*(**Aligning and running bam-to-bed (default runs bowtie)**)*
 Picard tools is added up to estimate the quality metrics and remove the duplicates from aligned bam files.
 However both the bam files *_sorted.bam and *_rmdup.bam files are present in the alignment_(aligner) folder.
 For further steps, duplicates removed bam files are used .
