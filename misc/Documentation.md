@@ -16,13 +16,14 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
  
 `seqkit  --help`
 
-### Aligning and running bam-to-bed (default runs bowtie)**
+### Aligning and running bam-to-bed (default runs bowtie)
 
 *Picard tools* is incorporated into _seqkit_ to estimate the quality metrics and remove the duplicates from aligned bam files.
 However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the _(alignment_*)_ folder.
 For further steps in seqkit, duplicates removed bam files are used .
 
 ** To run on all samples present in the project folder (-p)** 
+
 `seqkit analysis align -p Ascl1_US --bam_to_bed`
 
 **`--bam_to_bed` (Optional)**  Bed files are input to the peak calling software (macs2/danpos2).
