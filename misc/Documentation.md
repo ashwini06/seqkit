@@ -70,7 +70,9 @@ Creates seperate folder for _(bam_files)_ and _(bedfiles)_
 */project_dir/sample_folder/alignment_bowtie/bam_files*
 
 Mark_input_s3_Markinput_bowtie2.log 
+
 Mark_input_s3_Markinput_sorted.bam.bai
+
 Mark_input_s3_Markinput_sorted.bam
 
 */project_dir/sample_folder/alignment_bowtie/bedfiles*
