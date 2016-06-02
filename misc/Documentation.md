@@ -34,6 +34,21 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 A prior quality check to run a fastqc on all the sample folders present in the project folder. It is important to check the sequency quality, over-represented sequences and duplicate percentages from the fastqc output results.
 Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/BIT815/Overview/Week2/FastQC_details.pdf)
 
+`seqkit preqc -p Ascl1_US`
+
+
+**Inputs**
+
+>| Command | Expected Input | Explanation |
+|:----:|:----:|:----|
+| -p/--project | FILENAME	| Path to the project folder |
+
+**Outputs**
+
+Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
+
+
+
 <a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
 
