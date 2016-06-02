@@ -18,7 +18,7 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 
 [Running fastqc](#preqc)
 
-[Aligning and running bam-to-bed (default runs bowtie)](#align)
+[Aligning and running bam-to-bed](#align)
 
 [Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
 
@@ -63,8 +63,8 @@ For further steps in seqkit, duplicates removed bam files are used .
 Bed files are input to the peak calling software (macs2/danpos2).
 So bed files can be generated while aligning the reads by adding an extra option *--bam_to_bed*.
 
-Also, the above can independently run (in case if we dont to generate *bed files* 
-or if we want to run generate *bed files* from already existed *aligned reads*)
+Also, the above can be independently run (in case if we dont want to generate *bed files* 
+or if we want to generate *bed files* from already existed *aligned reads*)
 
 **Command-line**
 
