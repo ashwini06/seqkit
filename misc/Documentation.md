@@ -64,7 +64,7 @@ Bed files are input to the peak calling software (macs2/danpos2).
 So bed files can be generated while aligning the reads by adding an extra option *--bam_to_bed*.
 
 Also, the above can be independently run (in case if we dont want to generate *bed files* 
-or if we want to run generate *bed files* from already existed *aligned reads*)
+or if we want to generate *bed files* from already existed *aligned reads*)
 
 **Command-line**
 
