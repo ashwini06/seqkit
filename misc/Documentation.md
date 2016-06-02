@@ -16,6 +16,8 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
  
 `seqkit  --help`
 
+[Running fastqc](#preqc)
+
 [Aligning and running bam-to-bed (default runs bowtie)](#align)
 
 [Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
@@ -26,8 +28,11 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 
 [Running htSeq-Count] (#none)
 
+<a name="preqc"></a>
+### Running Fastqc 
 
-
+A prior quality check to run a fastqc on all the sample folders present in the project folder. It is important to check the sequency quality, over-represented sequences and duplicate percentages from the fastqc output results.
+Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/BIT815/Overview/Week2/FastQC_details.pdf)
 
 <a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
