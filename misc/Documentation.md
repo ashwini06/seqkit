@@ -7,16 +7,18 @@ Edit the root dir path in *seqkit.yaml*
 
 It should point to the path one level up where all the data folders are present
 
-Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_histone"`
+Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_Data"`
 
 
-To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf) structure. 
+To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://www.evernote.com/shard/s734/res/a0538341-8226-4583-8d3d-559c31a6b476/Seqkit_project_dir.pdf) file structure. 
 
 ## Available functions in seqkit
  
 `seqkit  --help`
 
-[Aligning and running bam-to-bed (default runs bowtie)](#align)
+[Running fastqc](#preqc)
+
+[Aligning and running bam-to-bed](#align)
 
 [Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
 
@@ -26,6 +28,24 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 
 [Running htSeq-Count] (#none)
 
+<a name="preqc"></a>
+### Running Fastqc 
+
+A prior quality check to run a fastqc on all the sample folders present in the project folder. It is important to check the sequency quality, over-represented sequences and duplicate percentages from the fastqc output results.
+Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/BIT815/Overview/Week2/FastQC_details.pdf)
+
+`seqkit preqc -p Ascl1_US`
+
+
+**Inputs**
+
+>| Command | Expected Input | Explanation |
+|:----:|:----:|:----|
+| -p/--project | FILENAME	| Path to the project folder |
+
+**Outputs**
+
+Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
 
 
 
@@ -43,8 +63,8 @@ For further steps in seqkit, duplicates removed bam files are used .
 Bed files are input to the peak calling software (macs2/danpos2).
 So bed files can be generated while aligning the reads by adding an extra option *--bam_to_bed*.
 
-Also, the above can independently run (in case if we dont to generate *bed files* 
-or if we want to run generate *bed files* from already existed *aligned reads*)
+Also, the above can be independently run (in case if we dont want to generate *bed files* 
+or if we want to generate *bed files* from already existed *aligned reads*)
 
 **Command-line**
 
