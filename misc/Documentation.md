@@ -95,7 +95,7 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Command-line**
 
-`seqkit peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
+`seqkit peakcall -p Ascl1_US -i https://github.com/ashwini06/seqkit/blob/test/data/test.txt`
 
 **Inputs**
 
