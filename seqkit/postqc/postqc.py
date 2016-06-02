@@ -22,17 +22,14 @@ def bamcov(project, genefile, input_file):
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
                        'module load deepTools/2.2.3\n\n'
-                       #'bamCompare -b1 {treatment} -b2 {control} -o {outfile}\n\n'
-                       'bamCompare --bamfile1 {treatment} --bamfile2 {control} --binSize 25 --ratio log2 --scaleFactorsMethod SES -o {postqc_dir}/{treat}_Vs_{ctrl}_log2ratio.bw\n'
-                      #'computeMatrix scale-regions --regionsFileName {ucsc_file} --scoreFileName {outfile} --upstream 1000 --downstream 1000 --regionBodyLength 1000 --binSize 1 --sortRegions no --sortUsing mean --averageTypeBins mean --outFileName {matrix_fl}\n\n'
-                       ##'computeMatrix scale-regions -S {outfile} -R {ucsc_file} --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000 --skipZeros -o {matrix_fl} --outFileSortedRegions {sorted_fl}\n'
-                       #plotting heatmap
-                       # 'plotHeatmap -m {matrix_fl} -out {hmap}\n')
-                       'plotFingerprint -b {treatment} {control} -plot {postqc_dir}/{treat}_Vs_{ctrl}_fingerprint.png --labels {treat} {ctrl}\n')
-                       # multiBamSummary bins --bamfiles /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/*/alignment_bowtie/bam_files/*_rmdup.bam -out /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/results.npz
-#                        plotCorrelation --corData /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/results.npz --plotFile /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/scatterplot.pdf --corMethod pearson --whatToPlot scatterplot --skipZeros
-#                        computeMatrix scale-regions -S /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/treat.bw -R /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/chr1_ucsc.bed --skipZeros -o /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/matrix.mat.gz
-#plotHeatmap -m /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/matrix.mat.gz -out /proj/b2012025/RAW_DATA/ChIP_Data/Ascl1_US/Mark_Mash1_s4/deepTools/heatmap1_chr.png
+                       #'bamCompare --bamfile1 {treatment} --bamfile2 {control} --binSize 25 --ratio log2 --scaleFactorsMethod SES -o {postqc_dir}/{treat}_Vs_{ctrl}_log2ratio.bw\n'
+                       'bamCoverage --bam {treatment} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{treat}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
+                       'bamCoverage --bam {control} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{ctrl}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
+                       'plotFingerprint -b {treatment} {control} -plot {postqc_dir}/{treat}_Vs_{ctrl}_fingerprint.png --labels {treat} {ctrl}\n'
+                       'multiBamSummary bins --bamfiles '+proj_dir+'/*/alignment_bowtie/bam_files/*_rmdup.bam -out {postqc_dir}/results.npz\n'
+                       'plotCorrelation --corData {postqc_dir}/results.npz --plotFile {postqc_dir}/scatterplot.pdf --corMethod pearson --whatToPlot scatterplot --skipZeros\n'
+                      'computeMatrix scale-regions -S {postqc_dir}/{treat}_coverage.bw -R {ucsc_file} --skipZeros -o {postqc_dir}/{treat}_matrix.mat.gz\n'
+                      'plotHeatmap -m {postqc_dir}/{treat}_matrix.mat.gz -out {postqc_dir}/{treat}_heatmap.png\n')
 
 
     ucsc_file = genefile
@@ -50,15 +47,9 @@ def bamcov(project, genefile, input_file):
         postqc_dir = os.path.join(proj_dir,treat,"deepTools")
         if not os.path.exists(postqc_dir):
             os.mkdir(postqc_dir)
-        op_fl = os.path.join(postqc_dir,"{}_{}.bw".format(name,"coverage"))
-        if not os.path.exists(op_fl):
-            os.mknod(op_fl)    
-        #hmap = os.path.join(postqc_dir,"{}_{}.png".format(name,"heatmap"))
-        #if not os.path.exists(hmap):
-        #    os.mknod(hmap)
         job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
         with open(job_file, 'w') as jb_fl:
-            jb_fl.write(sbatch_template.format(treat=treat,ctrl=ctrl,name=name,treatment=treat_fl, control=control_fl,outfile=op_fl,ucsc_file=ucsc_file,postqc_dir=postqc_dir))
+            jb_fl.write(sbatch_template.format(treat=treat, ctrl=ctrl, name=name, treatment=treat_fl, control=control_fl, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
 #        subprocess.check_call(['sbatch',job_file])
 
 
