@@ -28,8 +28,8 @@ def bamcov(project, genefile, input_file):
                        'plotFingerprint -b {treatment} {control} -plot {postqc_dir}/{treat}_Vs_{ctrl}_fingerprint.png --labels {treat} {ctrl}\n'
                        'multiBamSummary bins --bamfiles '+proj_dir+'/*/alignment_bowtie/bam_files/*_rmdup.bam -out {postqc_dir}/results.npz\n'
                        'plotCorrelation --corData {postqc_dir}/results.npz --plotFile {postqc_dir}/scatterplot.pdf --corMethod pearson --whatToPlot scatterplot --skipZeros\n'
-                       'computeMatrix scale-regions -S {postqc_dir}/{treat}_coverage.bw {postqc_dir}/{ctrl}_coverage.bw -R {ucsc_file} --skipZeros -o {postqc_dir}/matrix.mat.gz --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000\n'
-                       'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png\n')
+                      'computeMatrix scale-regions -S {postqc_dir}/{treat}_coverage.bw -R {ucsc_file} --skipZeros -o {postqc_dir}/{treat}_matrix.mat.gz\n'
+                      'plotHeatmap -m {postqc_dir}/{treat}_matrix.mat.gz -out {postqc_dir}/{treat}_heatmap.png\n')
 
 
     ucsc_file = genefile
