@@ -100,6 +100,8 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'nm=${{nm/_*/}}\n' 
                       'nam="{sam}_"${{nm}}\n\n'
                       ''+align_block+''
+                      'samtools view -H {align_dir}/${{nam}}.bam | sed -e \'s/SN:\([0-9XY]\)/SN:chr\1/\' -e \'s/SN:M/SN:chrM/\' | samtools reheader - {align_dir}/${{nam}}.bam > {align_dir}/${{nam}}_v1.bam\n\n'
+                      'mv {align_dir}/${{nam}}_v1.bam {align_dir}/${{nam}}.bam\n\n'
                       'samtools sort -T temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
                       'java -jar /pica/sw/apps/bioinfo/picard/1.92/milou/MarkDuplicates.jar INPUT={align_dir}/${{nam}}_sorted.bam OUTPUT={align_dir}/${{nam}}_sorted_rmdup.bam METRICS_FILE={align_dir}/${{nam}}_picardmetrics.txt REMOVE_DUPLICATES=True\n'
                       'samtools index {align_dir}/${{nam}}_sorted_rmdup.bam\n\n'
