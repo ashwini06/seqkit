@@ -20,9 +20,9 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 
 [Aligning and running bam-to-bed (default runs bowtie)](#align)
 
-[Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
-
 [Post-QC for analysis](#postqc)
+
+[Peak-calling (either in TF or HM mode: macs2/danpos2)](#Peak-call)
 
 [Runing Tophat, Cufflinks](#none)
 
@@ -103,6 +103,20 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 */project_dir/sample_folder/alignment_bowtie/bedfiles* contains:
 + *uniq.bed
++ 
+
+<a name="postqc"/></a>
+### Post-QC for analysis
+
+DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
+Incoporated _bamcompare_,_computeMatrix_,_plotHeatmap_ functions from *deepTools*.
+
+**Command-line**
+
+`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes_v2.bed`
+
+**Inputs**
+
 
 <a name="Peak-call"/></a>
 
@@ -129,16 +143,5 @@ danpos2 might work well so included danpos2 option for HM data.
 **Outputs**
 
 
-<a name="postqc"/></a>
-### Post-QC for analysis
-
-DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
-Incoporated _bamcompare_,_computeMatrix_,_plotHeatmap_ functions from *deepTools*.
-
-**Command-line**
-
-`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes_v2.bed`
-
-**Inputs**
 
 
