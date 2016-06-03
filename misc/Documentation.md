@@ -132,8 +132,7 @@ danpos2 might work well so included danpos2 option for HM data.
 <a name="postqc"/></a>
 ### Post-QC for analysis
 
-DeepTools provides number of quality metrics and provides an estimate for assessing the quality of ChIP.
-Incoporated _bamcompare_, _computeMatrix_, _plotHeatmap_, _plotCorrelation_, _plotFingerprint_ functions from [*deepTools*](http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html), which gives the idea about the chip enrichment signals, distribution of reads across genes, correlation between samples and whether ChIP experiment worked or not. 
+[*DeepTools*] (http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) provides number of quality metrics and provides an estimate for assessing the quality of ChIP. Incoporated _bamcompare_, _computeMatrix_, _plotHeatmap_, _plotCorrelation_, _plotFingerprint_ functions, which gives the idea about the chip enrichment signals, distribution of reads across genes, correlation between samples and whether ChIP experiment worked or not. 
 
 **Command-line**
 
