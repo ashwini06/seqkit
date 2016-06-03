@@ -17,6 +17,8 @@ To run seqkit we need some folder re-arrangements for placing the rawdata files.
 **Note**
 In the following example commands,  _Ascl1_US_ experiment is used which has [this](https://github.com/ashwini06/seqkit/blob/master/misc/Ascl1_US_projectstructure.pdf) structure. 
 
+=======
+
 ## Available functions in seqkit
  
 `seqkit  --help`
@@ -32,6 +34,8 @@ In the following example commands,  _Ascl1_US_ experiment is used which has [thi
 [Runing Tophat, Cufflinks](#none)
 
 [Running htSeq-Count] (#none)
+
+=======
 
 <a name="preqc"></a>
 ### Running Fastqc 
@@ -52,7 +56,7 @@ Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/B
 
 Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
 
-
+=======
 
 <a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
@@ -109,6 +113,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 */project_dir/sample_folder/alignment_bowtie/bedfiles* contains:
 + *uniq.bed
 
+=======
 
 
 <a name="Peak-call"/></a>
@@ -135,6 +140,8 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Outputs**
 
+=======
+
 <a name="postqc"/></a>
 ### Post-QC for analysis
 
@@ -146,7 +153,6 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Inputs**
 
-=======
 >| Command | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
