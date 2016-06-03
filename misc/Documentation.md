@@ -146,7 +146,7 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Note**
 
-macs2/danpos2 command line parameters can be edited in (configuration file)[https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml]
+macs2/danpos2 command line parameters can be edited in [configuration file](https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml)
 
 
 =======
