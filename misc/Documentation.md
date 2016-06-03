@@ -146,11 +146,10 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Inputs**
 
-<<<<<<< ours
 =======
 >| Command | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
 |--genefile| FILENAME | Path to File name in BED format, containing the regions to plot |
->>>>>>> theirs
+
