@@ -76,8 +76,7 @@ def run_align(project, aligner, sample, bam_to_bed):
         align_module = 'module load bowtie/1.1.2\n'
         align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/BowtieIndex/genome"
         align_block =  ('bowtie -q -m 1 -v 3 --best --strata {align_index} ${{fq}} -S {align_dir}/${{nam}}.sam 2>{align_dir}/${{nam}}_bowtie.log\n\n'
-                        'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n'
-                        'rm {align_dir}/${{nam}}.sam\n\n')
+                        'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n')
 
     
     align_template = ('#!/bin/bash -l\n'
@@ -100,13 +99,14 @@ def run_align(project, aligner, sample, bam_to_bed):
                       'nm=${{nm/_*/}}\n' 
                       'nam="{sam}_"${{nm}}\n\n'
                       ''+align_block+''
-                      'samtools view -H {align_dir}/${{nam}}.bam | sed -e \'s/SN:\([0-9XY]\)/SN:chr\1/\' -e \'s/SN:M/SN:chrM/\' | samtools reheader - {align_dir}/${{nam}}.bam > {align_dir}/${{nam}}_v1.bam\n\n'
+                      'samtools view -H {align_dir}/${{nam}}.bam | sed -e \'s/SN:\([0-9XY]\)/SN:chr\\1/\' -e \'s/SN:M/SN:chrM/\' | samtools reheader - {align_dir}/${{nam}}.bam > {align_dir}/${{nam}}_v1.bam\n\n'
                       'mv {align_dir}/${{nam}}_v1.bam {align_dir}/${{nam}}.bam\n\n'
                       'samtools sort -T temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
                       'java -jar /pica/sw/apps/bioinfo/picard/1.92/milou/MarkDuplicates.jar INPUT={align_dir}/${{nam}}_sorted.bam OUTPUT={align_dir}/${{nam}}_sorted_rmdup.bam METRICS_FILE={align_dir}/${{nam}}_picardmetrics.txt REMOVE_DUPLICATES=True\n'
                       'samtools index {align_dir}/${{nam}}_sorted_rmdup.bam\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
                       'rm {align_dir}/${{nam}}.bam\n\n'
+                      'rm {align_dir}/${{nam}}.sam\n\n'
                       'done\n')
 
     if sample:
