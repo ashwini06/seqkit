@@ -140,6 +140,8 @@ danpos2 might work well so included danpos2 option for HM data.
 
 **Outputs**
 
+[MACS outputs and parameters](https://github.com/taoliu/MACS)
+
 =======
 
 <a name="postqc"/></a>
