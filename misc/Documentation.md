@@ -52,7 +52,7 @@ Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc sum
 <a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
 
-[*Picard tools*](http://broadinstitute.github.io/picard/) is incorporated into _seqkit_ to estimate the quality metrics and (remove the duplicates)[http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates] from aligned bam files.
+[*Picard tools*](http://broadinstitute.github.io/picard/) is incorporated into _seqkit_ to estimate the quality metrics and [remove the duplicates](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicate) from aligned bam files.
 However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the _(alignment_*)_ folder.
 For further steps in seqkit, duplicates removed bam files are used .
 
