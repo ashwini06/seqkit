@@ -19,7 +19,7 @@ In the following example commands,  _Ascl1_US_ experiment is used which has [thi
 
 =======
 
-## Available functions in seqkit
+### Available functions in seqkit
  
 `seqkit  --help`
 
