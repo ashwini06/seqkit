@@ -178,4 +178,6 @@ STAR is a ultra-fast aligner, which is generally used for aligning RNA-Seq reads
 <a name="htcuff"></a>
 ### Generating counts and fpkm values
 
+[htSeq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html) and [cufflinks](http://cole-trapnell-lab.github.io/cufflinks/cufflinks/index.html) are used to generate the counts and fpkm values. 
+
 `seqkit htcuff -p lizzy_andersson_ChIP_ESC_57-64 -a STAR -s 130917_D3.5_wt_Rep1_H3K4me1`
