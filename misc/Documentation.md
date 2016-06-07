@@ -61,7 +61,7 @@ Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc sum
 <a name="align"/></a>
 ### Aligning and running bam-to-bed (default runs bowtie)
 
-[*Picard tools*](http://broadinstitute.github.io/picard/) is incorporated into _seqkit_ to estimate the quality metrics and [remove the duplicates](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicate) from aligned bam files.
+[*Picard tools*](http://broadinstitute.github.io/picard/) is incorporated into _seqkit_ to estimate the quality metrics and [remove the duplicates](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates) from aligned bam files.
 However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the _(alignment_*)_ folder.
 For further steps in seqkit, duplicates removed bam files are used .
 
@@ -120,10 +120,10 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 ### Peak-calling (either in TF or HM mode: macs2/danpos2)
 
-For _TF chip_ the macs2 is working well to call the enriched regions.
-Whereas for some of the broad marks, macs2 doesn't work well in calling the enriched regions .
-However it calls the regions but it is divided into small segmental peaks.
-danpos2 might work well so included danpos2 option for HM data.
+For _TF chip_, to call the enriched regions macs2 works well.
+Whereas for some of the broad marks, macs2 doesn't work well 
+(the called regions is divided into small segmental peaks).
+Some of the publications [ref] used danpos2 to call the enriched regions for HM data.
 
 **Command-line**
 
