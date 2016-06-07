@@ -121,9 +121,9 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 ### Peak-calling (either in TF or HM mode: macs2/danpos2)
 
 For _TF chip_, to call the enriched regions macs2 works well.
-Whereas for some of the broad marks, macs2 doesn't work well. 
+Whereas for some of the broad marks, macs2 doesn't work well 
 (the called regions is divided into small segmental peaks).
-Some of the publications[ref] used danpos2 to call the enriched regions for HM data.
+Some of the publications [ref] used danpos2 to call the enriched regions for HM data.
 
 **Command-line**
 
