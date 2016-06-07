@@ -31,9 +31,9 @@ In the following example commands,  _Ascl1_US_ experiment is used which has [thi
 
 [Post-QC for analysis](#postqc)
 
-[Runing Tophat, Cufflinks](#none)
+[Runing STAR](#none)
 
-[Running htSeq-Count] (#none)
+[Running htSeq-Count, Cufflinks](#none)
 
 =======
 
