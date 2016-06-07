@@ -79,7 +79,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 `seqkit analysis align -p Ascl1_US ` (Doesnt generate bed files)
 
-`seqkit analysis bamtobed -p Ascl1_US --slurm` (Generates bed files from already existed files)
+`seqkit analysis bam_to_bed -p Ascl1_US --slurm` (Generates bed files from already existed files)
 
 **To run on specific samples (s) present in the project folder (-p)**
 
