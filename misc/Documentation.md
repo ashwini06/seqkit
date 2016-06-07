@@ -31,9 +31,9 @@ In the following example commands,  _Ascl1_US_ experiment is used which has [thi
 
 [Post-QC for analysis](#postqc)
 
-[Runing STAR](#none)
+[Runing STAR](#star)
 
-[Running htSeq-Count, Cufflinks](#none)
+[Running htSeq-Count, Cufflinks](#htcuff)
 
 =======
 
@@ -168,3 +168,14 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
 |--genefile| FILENAME | Path to File name in BED format, containing the regions to plot |
 
+<a name="star"></a>
+### Running STAR
+
+STAR is a ultra-fast aligner, which is generally used for aligning RNA-Seq reads
+
+`seqkit analysis align -p lizzy_andersson_ChIP_ESC_57-64 -a STAR -s 130917_D3.5_wt_Rep1_H3K4me1`
+
+<a name="htcuff"></a>
+### Generating counts and fpkm values
+
+`seqkit htcuff -p lizzy_andersson_ChIP_ESC_57-64 -a STAR -s 130917_D3.5_wt_Rep1_H3K4me1`
