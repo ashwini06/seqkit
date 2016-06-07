@@ -12,7 +12,7 @@ def rnaseq():
 ## analysis subcommands
 @rnaseq.command()
 @click.option('-p','--project',required=True, type=click.STRING,help='Project to perform alignment')
-@click.option('-a','--aligner', default='bowtie',type=click.STRING,help='which aligner to use bowtie/bowtie2/bwa, default is "bowtie"')
+@click.option('-a','--aligner', default='STAR',type=click.STRING,help='which aligner to use STAR/Tophat, default is "STAR"')
 @click.option('-s','--sample',type=click.STRING,help='Sample to run')
 @click.pass_context
 def htcuff(ctx, project, aligner, sample):
