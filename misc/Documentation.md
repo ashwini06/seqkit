@@ -168,6 +168,9 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
 |--genefile| FILENAME | Path to File name in BED format, containing the regions to plot |
 
+
+## RNA-Seq analysis
+
 <a name="star"></a>
 ### Running STAR
 
