@@ -122,7 +122,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 For _TF chip_, to call the enriched regions macs2 works well.
 Whereas for some of the broad marks, macs2 doesn't work well. 
-For eg: the called regions is divided into small segmental peaks.
+(the called regions is divided into small segmental peaks).
 Some of the publications[ref] used danpos2 to call the enriched regions for HM data.
 
 **Command-line**
