@@ -26,6 +26,6 @@ def align(ctx, project, aligner, sample, bam_to_bed):
 @click.option('--slurm', is_flag=True, help='Run the conversion as slurm jobs')
 @click.option('-s','--sample',type=click.STRING,help='Sample to run')
 @click.pass_context
-def bamTobed(ctx, project, aligner, sample, slurm):
+def bam_to_bed(ctx, project, aligner, sample, slurm):
 	""" Commands to convert bam files to bed files """
 	als.run_b2b(project, aligner, sample, slurm)
