@@ -154,7 +154,8 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 <a name="postqc"/></a>
 ### Post-QC for analysis
 
-[*DeepTools*] (http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) provides number of quality metrics and provides an estimate for assessing the quality of ChIP. Incoporated _bamcompare_, _computeMatrix_, _plotHeatmap_, _plotCorrelation_, _plotFingerprint_ functions, which gives the idea about the chip enrichment signals, distribution of reads across genes, correlation between samples and whether ChIP experiment worked or not. 
+[*DeepTools*] (http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) provides number of quality metrics and provides an estimate for assessing the quality of ChIP. Incoporated _bamcompare_, _computeMatrix_, _plotHeatmap_, _plotCorrelation_, _plotFingerprint_ functions, which gives the idea about the chip enrichment signals, distribution of reads across genes, correlation between samples and whether ChIP experiment worked or not.
+[*ngsplot*](https://github.com/shenlab-sinai/ngsplot) is another tool to create enrichment plots. This function complements with _plotHeatmap_ function from _DeepTools_ . 
 
 **Command-line**
 
