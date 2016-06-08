@@ -172,7 +172,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 | Output files| Description|
 |:----:|:----:|:----|
-| *_coverage.bw   | BigWig files can be uploaded to UCSC or other genome browsers to view the coverage. Best and easiest way is to upload to the local server and use http link in the [custom track](https://genome.ucsc.edu/goldenpath/help/bigWig.html) |
+| *_coverage.bw   | BigWig files can be uploaded to UCSC browser to view the coverage. Best and easiest way is to upload to the local server and use http link in the [track line](https://genome.ucsc.edu/goldenpath/help/bigWig.html) |
 | *_fingerprint.png | Gives the overview of ChIPseq files. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotFingerprint.html) |
 | scatterplot.pdf   | Correlation value. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotCorrelation.html) |
 |*heatmap.png| Plots the heatmap for scores associated with genomic regions. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotHeatmap.html)|
