@@ -90,11 +90,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
-<<<<<<< HEAD
->|  Parameters | Expected Input | Explanation |
-=======
 >| Parameters | Expected Input | Explanation |
->>>>>>> fa45ece371a99ed1e349f0833ed2b865f7b6418f
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
@@ -135,11 +131,7 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 
 **Inputs**
 
-<<<<<<< HEAD
->|  Parameters | Expected Input | Explanation |
-=======
->| Parameters | Expected Input | Explanation |
->>>>>>> fa45ece371a99ed1e349f0833ed2b865f7b6418f
+|  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
@@ -170,11 +162,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Inputs**
 
-<<<<<<< HEAD
 >|  Parameters | Expected Input | Explanation |
-=======
->| Parameters | Expected Input | Explanation |
->>>>>>> fa45ece371a99ed1e349f0833ed2b865f7b6418f
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
