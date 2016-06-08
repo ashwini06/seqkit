@@ -48,7 +48,7 @@ Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/B
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 
@@ -72,7 +72,7 @@ For further steps in seqkit, duplicates removed bam files are used .
 Bed files are input to the peak calling software (macs2/danpos2).
 So bed files can be generated while aligning the reads by adding an extra option *--bam_to_bed*.
 
-Also, the above can independently run (in case if we dont want to generate *bed files* 
+Also, the above can be independently run (in case if we dont want to generate *bed files* 
 or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Command-line**
@@ -90,7 +90,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
@@ -131,7 +131,7 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
@@ -162,7 +162,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
