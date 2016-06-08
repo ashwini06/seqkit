@@ -31,8 +31,9 @@ def bamcov(project, genefile, input_file):
                        'plotCorrelation --corData {postqc_dir}/results.npz --plotFile {postqc_dir}/scatterplot.pdf --corMethod pearson --whatToPlot scatterplot --skipZeros\n'
                        'computeMatrix scale-regions -S {postqc_dir}/{treat}_coverage.bw {postqc_dir}/{ctrl}_coverage.bw -R {ucsc_file} --skipZeros -o {postqc_dir}/matrix.mat.gz --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000\n'
                        'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png\n'
-                       'ngs.plot.r -G mm10 -R genebody -C {treatment}:{control} -O {treat}_Vs_{ctrl}.genebody -T {treat}\n'
-                       'ngs.plot.r -G mm10 -R tss -C {treatment}:{control} -O {treat}_Vs_{ctrl}.tss -T {treat} -L 3000 -FL 3000\n')
+                       'ngs.plot.r -G mm10 -R genebody -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.genebody -T {treat}\n'
+                       'ngs.plot.r -G mm10 -R tss -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.tss -T {treat} -L 3000 -FL 3000\n'
+                       'rm *cnt\n')
 
 
     ucsc_file = genefile
