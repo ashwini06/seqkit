@@ -48,7 +48,7 @@ Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/B
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 
@@ -90,7 +90,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>|  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
@@ -131,7 +131,7 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>|  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
@@ -162,11 +162,23 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Inputs**
 
->| Command | Expected Input | Explanation |
+>|  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
 |--genefile| FILENAME | Path to File name in BED format, containing the regions to plot |
+
+**Outputs**
+
+| Output files| Description|
+|:----:|:----:|:----|
+| *_coverage.bw | BigWig files can be uploaded to UCSC genome browser to view the coverage.Easiest way is to upload to the local server and use http link in the [track line](https://genome.ucsc.edu/goldenpath/help/bigWig.html) |
+| *_fingerprint.png | Gives the overview of ChIPseq files. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotFingerprint.html) |
+| scatterplot.pdf   | Correlation value. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotCorrelation.html) |
+|*heatmap.png| Plots the heatmap for scores associated with genomic regions. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotHeatmap.html)|
+
+
+
 
 
 ## RNA-Seq analysis
