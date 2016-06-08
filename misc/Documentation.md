@@ -170,7 +170,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Outputs**
 
->| Output files    | Description  |
+| Output files| Description|
 |:----:|:----:|:----|
 | *_coverage.bw   | BigWig files which can be uploaded to UCSC or other genome browsers to view the coverage |
 | *_fingerprint.png | Gives the overview of ChIPseq files. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotFingerprint.html) |
