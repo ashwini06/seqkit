@@ -5,7 +5,7 @@ SeqKit
 ### A package to perform ChIPSeq and RNASeq analysis
 *Under development*
 
-Seqkit is an automated [workflow](https://github.com/ashwini06/seqkit/blob/master/misc/SeqKit_workflow.pdf) designed to perform quality controls of raw reads, aligning to reference genome, peak calling of ChIPSeq reads and so on.
+Seqkit is an automated [workflow](https://github.com/ashwini06/seqkit/blob/master/misc/SeqKit_workflow.pdf) designed pipeline to sustain quality controls of raw reads, aligning to reference genome, peak-calling of ChIPSeq reads and further analysis.
 
 Currently the tool acts like a internal toolkit to analyse NGS data in Ericson lab.
 
