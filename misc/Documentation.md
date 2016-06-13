@@ -97,6 +97,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
+|-a/--aligner|bowtie/bowtie2/bwa |  which sofware to be used for aligning raw reads (default (bowtie))|
 |--bamtobed | *(optional)*|   to generate bed files |
 
 
