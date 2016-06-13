@@ -22,7 +22,7 @@ Details on the installation routines can be found here.
 ### Linux/Mac Installation
 
 Requirements:
-Python 2.7
+Python 2.7, Uppmax 
 
 Commands:
 
