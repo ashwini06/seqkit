@@ -14,7 +14,7 @@ Installation
 ---------------
 * command line usage
 
-Details on the installation routines can be found here.
+Details on the installation procedures can be found below.
 
 [Linux/Mac Installation](#general)
 
