@@ -40,7 +40,7 @@ In the following example commands,  _Ascl1_US_ experiment is used which has [thi
 <a name="preqc"></a>
 ### Running Fastqc 
 
-A prior quality check to run a fastqc on all the sample folders present in the project folder. It is important to check the sequency quality, over-represented sequences and duplicate percentages from the fastqc output results.
+A prior quality check to run fastqc on all the sample folders present in the project folder. It is important to check the sequency quality, over-represented sequences and duplicate percentages from the fastqc output results.
 Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/BIT815/Overview/Week2/FastQC_details.pdf)
 
 `seqkit preqc -p Ascl1_US`
@@ -63,7 +63,7 @@ Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc sum
 
 [*Picard tools*](http://broadinstitute.github.io/picard/) is incorporated into _seqkit_ to estimate the quality metrics and [remove the duplicates](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates) from aligned bam files.
 However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the _(alignment_*)_ folder.
-For further steps in seqkit, duplicates removed bam files are used .
+For further steps in seqkit, duplicate removed bam files are used .
 
 **To run on all samples present in the project folder (-p)** 
 
