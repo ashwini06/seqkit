@@ -51,10 +51,13 @@ Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/B
 >| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
+|-o/--out_dir | FILENAME (optional) | Path to output folder |
+
 
 **Outputs**
 
-Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
+Default : Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
+If _out_dir_ is specified _fastqc_ results will be stored to the path mentioned. 
 
 =======
 
