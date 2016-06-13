@@ -66,7 +66,7 @@ If _out_dir_ is specified _fastqc_ results will be stored in the desired path.
 
 [*Picard tools*](http://broadinstitute.github.io/picard/) is incorporated into _seqkit_ to estimate the quality metrics and [remove the duplicates](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates) from aligned bam files.
 However both the bam files _(*_sorted.bam)_ and _(*_rmdup.bam)_ files are present in the _(alignment_*)_ folder.
-For further steps in seqkit, duplicate removed bam files are used .
+For further steps in seqkit, duplicates removed from the bam files are used .
 
 **To run on all samples present in the project folder (-p)** 
 
@@ -76,7 +76,7 @@ Bed files are input to the peak calling software (macs2/danpos2).
 So bed files can be generated while aligning the reads by adding an extra option *--bam_to_bed*.
 
 Also, the above can be independently run (in case if we dont want to generate *bed files* 
-or if we want to run generate *bed files* from already existed *aligned reads*)
+or if we want to generate *bed files* from already existed *aligned reads*)
 
 **Command-line**
 
@@ -123,8 +123,8 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 ### Peak-calling (either in TF or HM mode: macs2/danpos2)
 
-For _TF chip_, to call the enriched regions macs2 works well.
-Whereas for some of the broad marks, macs2 doesn't work well 
+For _TF chip_, to call the enriched regions _macs2_ works well.
+Whereas for some of the broad marks, macs2 might not work well 
 (the called regions is divided into small segmental peaks).
 Some of the publications [ref] used danpos2 to call the enriched regions for HM data.
 
@@ -137,7 +137,7 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 |  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
-| -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
+| -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain input name (Control) |
 |-m/--mode | TF/HM |  TF chip or Histone modification (default is TF) |
 |--peak_call| macs2/danpos2|macs2 (applicable for TF and HM) or danpos2(only for HM) (default is HM) |
 
@@ -157,7 +157,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 <a name="postqc"/></a>
 ### Post-QC for analysis
 
-[*DeepTools*] (http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) provides number of quality metrics and provides an estimate for assessing the quality of ChIP. Incoporated _bamcompare_, _computeMatrix_, _plotHeatmap_, _plotCorrelation_, _plotFingerprint_ functions, which gives the idea about the chip enrichment signals, distribution of reads across genes, correlation between samples and whether ChIP experiment worked or not.
+[*DeepTools*] (http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) provides number of quality metrics and also an estimate for assessing the quality of ChIP. Incoporated _bamcompare_, _computeMatrix_, _plotHeatmap_, _plotCorrelation_, _plotFingerprint_ functions, which gives the idea about the chip enrichment signals, distribution of reads across genes, correlation between samples and whether ChIP experiment worked or not.
 
 [*ngsplot*](https://github.com/shenlab-sinai/ngsplot) is another tool to create enrichment plots. This function complements with _plotHeatmap_ function from _DeepTools_ . 
 
@@ -170,7 +170,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 |  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
-| -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
+| -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain input name (Control) |
 |--genefile| FILENAME | Path to File name in BED format, containing the regions to plot |
 
 **Outputs**
