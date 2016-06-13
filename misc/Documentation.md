@@ -119,7 +119,6 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 =======
 
-
 <a name="Peak-call"/></a>
 
 ### Peak-calling (either in TF or HM mode: macs2/danpos2)
