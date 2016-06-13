@@ -191,7 +191,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 <a name="star"></a>
 ### Running STAR
 
-STAR is a ultra-fast aligner, which is generally used for aligning RNA-Seq reads
+STAR is an ultra-fast aligner, which is generally used for aligning RNA-Seq reads
 
 `seqkit analysis align -p lizzy_andersson_ChIP_ESC_57-64 -a STAR -s 130917_D3.5_wt_Rep1_H3K4me1`
 
