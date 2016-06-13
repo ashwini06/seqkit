@@ -20,7 +20,11 @@ Details on the installation routines can be found here.
 <a name="general"/></a>
 ### Linux/Mac Installation
 
+Requirements:
+Python 2.7
+
 Commands:
+
 `git clone https://github.com/ashwini06/seqkit`
 or download [zip](https://github.com/ashwini06/seqkit/archive/master.zip)
 
