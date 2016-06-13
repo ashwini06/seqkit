@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 """Methods and functionalites to do analysis"""
 import os
-import pdb
 import subprocess
 from glob import glob
 from seqkit import CONFIG as conf
