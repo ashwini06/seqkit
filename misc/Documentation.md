@@ -40,7 +40,7 @@ In the following example commands,  _Ascl1_US_ experiment is used to illustrate 
 <a name="preqc"></a>
 ### Running Fastqc 
 
-A prior quality check to run fastqc on all the samples can be done through _preqc_. It is important to check the sequency quality, over-represented sequences and duplicate percentages from the fastqc output results.
+A prior quality check to run fastqc on all the samples can be analyzed through _preqc_. It is important to check the sequence quality, over-represented sequences and duplicate percentages from the fastqc output results.
 Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/BIT815/Overview/Week2/FastQC_details.pdf)
 
 `seqkit preqc -p Ascl1_US`
@@ -57,7 +57,7 @@ Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/B
 **Outputs**
 
 Default : Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
-If _out_dir_ is specified _fastqc_ results will be stored to the path mentioned. 
+If _out_dir_ is specified _fastqc_ results will be stored in the desired path. 
 
 =======
 
