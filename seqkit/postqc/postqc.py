@@ -15,8 +15,8 @@ def bamcov(project, genefile, input_file):
                        '#SBATCH -J {name}_postqc\n'
                        '#SBATCH -p core -n 3 \n'
                        '#SBATCH -t 4:00:00\n'
-                       '#SBATCH -e '+proj_dir+'/{treat}/scripts/{name}_postqc.stderr\n'
-                       '#SBATCH -o '+proj_dir+'/{treat}/scripts/{name}_postqc.stdout\n'
+                       '#SBATCH -e '+proj_dir+'/{sample}/scripts/{name}_postqc.stderr\n'
+                       '#SBATCH -o '+proj_dir+'/{sample}/scripts/{name}_postqc.stdout\n'
                        '#SBATCH --mail-type=FAIL\n'
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
@@ -58,7 +58,7 @@ def bamcov(project, genefile, input_file):
                 name = "{}_Vs_{}".format(suf_s,con_c)
                 job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
                 with open(job_file, 'w') as jb_fl:
-                    jb_fl.write(sbatch_template.format(treat=suf_s, ctrl=con_c, name=name, treatment=sam, control=con, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
-                subprocess.check_call(['sbatch',job_file])
+                    jb_fl.write(sbatch_template.format(sample=treat, treat=suf_s, ctrl=con_c, name=name, treatment=sam, control=con, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
+                #subprocess.check_call(['sbatch',job_file])
 
 

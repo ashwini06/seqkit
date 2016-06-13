@@ -48,13 +48,16 @@ Fastqc output explaination is summarized [here](http://www4.ncsu.edu/~rosswhet/B
 
 **Inputs**
 
->| Parameters | Expected Input | Explanation |
+| Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
+|-o/--out_dir | FILENAME (optional) | Path to output folder |
+
 
 **Outputs**
 
-Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
+Default : Creates fastqc folder inside the sample folder. _*.html_ contains the fastqc summarized report.
+If _out_dir_ is specified _fastqc_ results will be stored to the path mentioned. 
 
 =======
 
@@ -90,10 +93,15 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
+<<<<<<< HEAD
 >| Parameters | Expected Input | Explanation |
+=======
+|  Parameters | Expected Input | Explanation |
+>>>>>>> test
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
+|-a/--aligner|bowtie/bowtie2/bwa |  which sofware to be used for aligning raw reads (default (bowtie))|
 |--bamtobed | *(optional)*|   to generate bed files |
 
 
@@ -164,7 +172,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Inputs**
 
->|  Parameters | Expected Input | Explanation |
+|  Parameters | Expected Input | Explanation |
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -i/--input | FILENAME | Path to tab-delimited text file. It is a 2 column file, where first column should contain sample name (Treatment) and second column should contain sample name (Control) |
