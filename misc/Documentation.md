@@ -176,10 +176,10 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 | Output files| Description|
 |:----:|:----:|:----|
-| *_coverage.bw | BigWig files can be uploaded to UCSC genome browser to view the coverage.Easiest way is to upload to the local server and use http link in the [track line](https://genome.ucsc.edu/goldenpath/help/bigWig.html) [Example](https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr17%3A15367354-15375823&hgsid=498762981_ascNmruLMMNBkmbedPsfE5wxlZiw)|
-| *_fingerprint.png | Gives the overview of ChIPseq files. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotFingerprint.html) |
-| scatterplot.pdf   | Correlation value. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotCorrelation.html) |
-|*heatmap.png| Plots the heatmap for scores associated with genomic regions. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotHeatmap.html)|
+| *_coverage.bw | BigWig files can be uploaded to UCSC genome browser to view the coverage.Easiest way is to upload to the local server and use http link in the [track line](https://genome.ucsc.edu/goldenpath/help/bigWig.html). [Example](https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr17%3A15367354-15375823&hgsid=498762981_ascNmruLMMNBkmbedPsfE5wxlZiw)|
+| *_fingerprint.png | Gives the overview of ChIPseq files. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotFingerprint.html). [Example](https://github.com/ashwini06/seqkit/blob/master/data/Ascl1_Example/Mark_Mash1_s4_Vs_Mark_input_s3_fingerprint.png)|
+| scatterplot.pdf   | Correlation value. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotCorrelation.html).[Example](https://github.com/ashwini06/seqkit/blob/master/data/Ascl1_Example/scatterplot.pdf)|
+|*heatmap.png| Plots the heatmap for scores associated with genomic regions. [More details](http://deeptools.readthedocs.io/en/latest/content/tools/plotHeatmap.html)[Average_Profile](https://github.com/ashwini06/seqkit/blob/master/data/Ascl1_Example/Mark_Mash1_s4_Vs_Mark_input_s3.genebody.avgprof.pdf) [heatmap](https://github.com/ashwini06/seqkit/blob/master/data/Ascl1_Example/Mark_Mash1_s4_Vs_Mark_input_s3.genebody.heatmap.pdf)|
 
 
 
