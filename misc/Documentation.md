@@ -12,10 +12,10 @@ Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_Data"`
 
 To run seqkit we need some folder re-arrangements for placing the rawdata files. Seqkit considers [this](https://github.com/ashwini06/seqkit/blob/master/misc/Seqkit_project_dir.pdf) file structure. 
 
-[Bash script](https://github.com/ashwini06/seqkit/blob/master/misc/arrange_data.sh) is written based on the general ChIP-Seq structure received during the time of project delivery. The script [rearranges](https://github.com/ashwini06/seqkit/blob/master/misc/SeqKit_projectdir_arrange.pdf) to the seqkit folder structure. However this script is not universal to all the project structures, as it is specifically written to the one structure. 
+[Bash script](https://github.com/ashwini06/seqkit/blob/master/misc/arrange_data.sh) is written based on the general ChIP-Seq structure received during the time of project delivery. The script [rearranges](https://github.com/ashwini06/seqkit/blob/master/misc/SeqKit_projectdir_arrange.pdf) to the seqkit folder structure. However this script is not universal to all the project structures, as it is specifically written to one structure. 
 
 **Note**
-In the following example commands,  _Ascl1_US_ experiment is used which has [this](https://github.com/ashwini06/seqkit/blob/master/misc/Ascl1_US_projectstructure.pdf) structure. 
+In the following example commands,  _Ascl1_US_ experiment is used to illustrate  [this](https://github.com/ashwini06/seqkit/blob/master/misc/Ascl1_US_projectstructure.pdf) structure. 
 
 =======
 
