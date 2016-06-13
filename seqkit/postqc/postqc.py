@@ -45,15 +45,21 @@ def bamcov(project, genefile, input_file):
         ln =  ln.split('\t')
         treat = ln[0]
         ctrl = ln[1]
-        name = "{}_Vs_{}".format(treat,ctrl)
-        treat_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,treat,treat)))
-        control_fl = ''.join(glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,ctrl,ctrl)))
         postqc_dir = os.path.join(proj_dir,treat,"deepTools")
         if not os.path.exists(postqc_dir):
             os.mkdir(postqc_dir)
-        job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
-        with open(job_file, 'w') as jb_fl:
-            jb_fl.write(sbatch_template.format(treat=treat, ctrl=ctrl, name=name, treatment=treat_fl, control=control_fl, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
-#        subprocess.check_call(['sbatch',job_file])
+        treat_fl = glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,treat,treat))
+        control_fl = glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,ctrl,ctrl))
+        for sam in treat_fl:
+            suf_s = os.path.basename(sam)
+            suf_s = suf_s.replace("_sorted_rmdup.bam","")
+            for con in control_fl:  
+                con_c = os.path.basename(con)
+                con_c = con_c.replace("_sorted_rmdup.bam","")
+                name = "{}_Vs_{}".format(suf_s,con_c)
+                job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
+                with open(job_file, 'w') as jb_fl:
+                    jb_fl.write(sbatch_template.format(treat=suf_s, ctrl=con_c, name=name, treatment=sam, control=con, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
+                subprocess.check_call(['sbatch',job_file])
 
 
