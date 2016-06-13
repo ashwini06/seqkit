@@ -1,6 +1,6 @@
 # Setup Requirements
 
-### Initial setups
+### Initial setup
 
 In the home directory create the folder *.seqkit* and place [*seqkit.yaml*](https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml) (configuration file) inside *.seqkit* folder. 
 Edit the root dir path in *seqkit.yaml*
