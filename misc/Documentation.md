@@ -93,11 +93,7 @@ or if we want to run generate *bed files* from already existed *aligned reads*)
 
 **Inputs**
 
-<<<<<<< HEAD
->| Parameters | Expected Input | Explanation |
-=======
 |  Parameters | Expected Input | Explanation |
->>>>>>> test
 |:----:|:----:|:----|
 | -p/--project | FILENAME	| Path to the project folder |
 | -s/--sample | FILENAME *(optional)*| to run on specific samples inside project folder |
