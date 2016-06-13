@@ -6,6 +6,7 @@ SeqKit
 *Under development*
 
 Seqkit is an automated [workflow](https://github.com/ashwini06/seqkit/blob/master/misc/SeqKit_workflow.pdf) designed to perform quality controls of raw reads, aligning to reference genome, peak calling of ChIPSeq reads and so on.
+
 Currently the tool acts as an internal toolkit to analyse NGS data in Ericson lab.
 
 <a name="installation"/></a>
