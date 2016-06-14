@@ -32,7 +32,7 @@ def bamcov(project, genefile, input_file):
                        'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png\n'
                        'ngs.plot.r -G mm10 -R genebody -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.genebody -T {treat}\n'
                        'ngs.plot.r -G mm10 -R tss -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.tss -T {treat} -L 3000 -FL 3000\n'
-                       'rm *cnt\n')
+                       #'if [ -e *cnt ]; then rm *cnt; fi\n')
 
 
     ucsc_file = genefile
@@ -59,6 +59,6 @@ def bamcov(project, genefile, input_file):
                 job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
                 with open(job_file, 'w') as jb_fl:
                     jb_fl.write(sbatch_template.format(sample=treat, treat=suf_s, ctrl=con_c, name=name, treatment=sam, control=con, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
-                #subprocess.check_call(['sbatch',job_file])
+                subprocess.check_call(['sbatch',job_file])
 
 
