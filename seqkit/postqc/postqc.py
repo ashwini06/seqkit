@@ -32,7 +32,8 @@ def bamcov(project, genefile, input_file):
                        'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png\n'
                        'ngs.plot.r -G mm10 -R genebody -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.genebody -T {treat}\n'
                        'ngs.plot.r -G mm10 -R tss -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.tss -T {treat} -L 3000 -FL 3000\n'
-                       #'if [ -e *cnt ]; then rm *cnt; fi\n')
+                       #'if [ -e *cnt ]; then rm *cnt; fi\n'
+                        )
 
 
     ucsc_file = genefile
