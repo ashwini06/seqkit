@@ -3,12 +3,14 @@
 ### Initial setup
 
 In the home directory create the folder *.seqkit* and place [*seqkit.yaml*](https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml) (configuration file) inside *.seqkit* folder. 
-Edit the root dir path in *seqkit.yaml*
 
-`mkdir ~/.seqkit`
+`mkdir ~/.seqkit`  - creates _.seqkit_ folder in your home directory.
 
-`touch ~/.seqkit/seqkit.yaml`
+`cd ~/.seqkit`   - change to .seqkit folder
 
+`wget https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml` - downloads the _seqkit.yaml_ file. 
+
+Edit the root dir path in *seqkit.yaml*.
 It should point to the path one level up where all the data folders are present
 
 Eg:  `root_dir: "/proj/b2012025/RAW_DATA/ChIP_Data"`
