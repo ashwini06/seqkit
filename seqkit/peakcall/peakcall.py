@@ -6,9 +6,8 @@ from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
-
 def run_peakcall(project, input_file, mode, peak_call):
-    """ Will run the preffered peak-calling software """
+    """ Will run the prefered peak-calling software """
     root_dir = conf.get('root_dir','')  
     proj_dir = os.path.join (root_dir,project)
     load_module = ('module load MACS/2.1.0\n')
