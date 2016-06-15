@@ -28,7 +28,7 @@ setup(name='seqkit',
         'seqkit.subcommands': [
             'preqc = seqkit.preqc.cli:preqc',
             'analysis = seqkit.analysis.cli:analysis',
-            'peakanalysis = seqkit.peakanalysis.cli:peakanalysis',
+            'peakanalysis = seqkit.peakcall.cli:peakanalysis',
             'postqc = seqkit.postqc.cli:postqc'
                 
         ]
