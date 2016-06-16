@@ -27,7 +27,10 @@ setup(name='seqkit',
         'console_scripts': ['seqkit = seqkit.cli:main'],
         'seqkit.subcommands': [
             'preqc = seqkit.preqc.cli:preqc',
-            'analysis = seqkit.analysis.cli:analysis'
+            'analysis = seqkit.analysis.cli:analysis',
+            'peakanalysis = seqkit.peakcall.cli:peakanalysis',
+            'postqc = seqkit.postqc.cli:postqc'
+                
         ]
     },
     install_requires=install_requires

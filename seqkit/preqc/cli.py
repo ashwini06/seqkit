@@ -2,7 +2,6 @@
 """ CLI for the QC subcommand
 """
 import click
-import subprocess
 from seqkit.preqc import preqc as qc
         
 @click.command()
