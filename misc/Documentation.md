@@ -136,7 +136,7 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 
 **Command-line**
 
-`seqkit peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
+ `seqkit peakanalysis peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
 
 **Inputs**
 
@@ -157,6 +157,14 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 
 macs2/danpos2 command line parameters can be edited in [configuration file](https://github.com/ashwini06/seqkit/blob/master/data/seqkit.yaml)
 
+## To annotate peak-called regions while peakcalling
+
+`seqkit peakanalysis peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --peakannotate`
+
+## Seperate peak-annotations on already called peak-regions
+
+` seqkit peakanalysis peakanno -p Ascl1_US --slurm`
+
 
 =======
 
@@ -169,7 +177,7 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Command-line**
 
-`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes_v2.bed`
+`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes.bed`
 
 **Inputs**
 
