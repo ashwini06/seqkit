@@ -4,7 +4,6 @@ import os
 import subprocess
 from glob import glob
 from seqkit import CONFIG as conf
-from seqkit.utils.col_match import colmatch 
 
 
 def run_peakanno(project,peak_call,slurm=False,job_file=None):
@@ -26,6 +25,7 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
     'cut -f1-6 $bed > {peaks_dir}/{nm}_annotate \n'
     ''+TSS_cmd+'\n'
     ''+NDG_cmd+'\n'
+    'python /home/ashwini/scripts/seqkit/seqkit/utils/col_match.py {anno_dir}/{nm}_annotate.tss {anno_dir}/{nm}_annotate.ndg {anno_dir}/{nm}_merged merge\n'
     'rm {peaks_dir}/{nm}_annotate\n'
     'done\n')             
     

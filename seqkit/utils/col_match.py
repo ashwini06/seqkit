@@ -28,4 +28,3 @@ def colmatch(fl1,fl2,fl3,chk):
                     if chk == "merge" :
                         op = "\t".join(mn+pos[id2])
                         op_fl.write(op+"\n")
-
