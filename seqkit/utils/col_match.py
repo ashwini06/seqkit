@@ -3,6 +3,8 @@
 # merge two files based on the chr-end positions if in two files the 3 cols are chr,start,end
 # Usage : colmatch(tss_fl,ndg_fl,cmb_fl,"merge/second_file")
 
+import sys
+
 def colmatch(fl1,fl2,fl3,chk):
     pos = {};
     with open(fl1,'r') as in_fl1, open(fl2,'r') as in_fl2, open(fl3, 'w') as op_fl:
@@ -29,3 +31,9 @@ def colmatch(fl1,fl2,fl3,chk):
                         op = "\t".join(mn+pos[id2])
                         op_fl.write(op+"\n")
 
+if __name__ == "__main__":
+    try:
+        f1, f2, f3, ck = sys.argv[1:]
+    except ValueError:
+        raise SystemExit("Correct number of parameters not given")
+    colmatch(f1, f2, f3, ck)
