@@ -72,8 +72,8 @@ def run_peakcall(project, input_file, mode, peak_call,peakannotate):
             macs2_cmd = conf.get('macs2_TF','')
             template = ('## Running Peak-calling for TF-ChIP data\n'
                         ''+load_module+''
-            ''+macs2_cmd+''
-                )
+                        ''+macs2_cmd+''
+                        )
         else:
             raise SystemExit("Please mention the type of peak caller - macs2")
     elif mode == "HM":   
@@ -101,8 +101,8 @@ def run_peakcall(project, input_file, mode, peak_call,peakannotate):
         ln =  ln.split('\t')
         treat = ln[0]
         ctrl = ln[1]
-    treat_fl = glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,treat,treat))
-    control_fl = glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,ctrl,ctrl))
+        treat_fl = glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,treat,treat))
+        control_fl = glob("{}/{}/alignment_*/bedfiles/{}*rmdup_uniq.bed".format(proj_dir,ctrl,ctrl))
         peaks_dir = os.path.join(proj_dir,treat,"{}_{}".format(peak_call,mode))
         if not os.path.exists(peaks_dir):
             os.makedirs(peaks_dir)
