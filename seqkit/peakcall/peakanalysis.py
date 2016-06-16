@@ -21,7 +21,7 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
     '#SBATCH -t 3:00:00\n'
     '#SBATCH --mail-type=FAIL\n'
     '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n')
-    template_peakanno = ('## Running peak-annotations\n'
+    template_peakanno = ('\n## Running peak-annotations\n'
     'for bed in $(ls --color=never {peaks_dir}/*narrowPeak);do\n'
     'cut -f1-6 $bed > {peaks_dir}/{nm}_annotate \n'
     ''+TSS_cmd+'\n'
