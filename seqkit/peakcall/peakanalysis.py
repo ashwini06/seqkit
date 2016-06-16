@@ -26,12 +26,10 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
     'cut -f1-6 $bed > {peaks_dir}/{nm}_annotate \n'
     ''+TSS_cmd+'\n'
     ''+NDG_cmd+'\n'
-    'python '+col_match.__file__+'{peaks_dir}/{nm}_annotate.tss {peaks_dir}/{nm}_annotate.ndg comb_fl "merge"\n'
+    'python '+col_match.__file__+' {anno_dir}/{nm}_annotate.tss {anno_dir}/{nm}_annotate.ndg {anno_dir}/{nm}_merged "merge"\n'
     'rm {peaks_dir}/{nm}_annotate\n'
     'done\n')             
     
-#    colmatch({peaks_dir}/{nm}_annotate.tss,{peaks_dir}/{nm}_annotate.ndg,comb_fl,"merge")
- 
     for sam in samples:
         sam_dir=os.path.split(sam)[0]
         nm=os.path.basename(sam_dir)
@@ -48,7 +46,7 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
             with open(job_file,'w') as jb_fl:
                 jb_fl.write(template_anno.format(peaks_dir=sam,nm=nm,anno_dir=annotate_dir))
             job_file=None
-
+        subprocess.check_all(['sbatch',job_file])
 
 
 def run_peakcall(project, input_file, mode, peak_call,peakannotate):
@@ -119,5 +117,5 @@ def run_peakcall(project, input_file, mode, peak_call,peakannotate):
                     jb_fl.write(template_pc.format(name=name,treat=treat, treatment=sam, control=con,peaks_dir=peaks_dir))
                 if peakannotate:
                     run_peakanno(project=project,peak_call=peak_call,slurm=True,job_file=job_fl)        
-                #subprocess.check_call(['sbatch',job_fl]) 
+                subprocess.check_call(['sbatch',job_fl]) 
 

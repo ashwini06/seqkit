@@ -4,6 +4,7 @@
 # Usage : colmatch(tss_fl,ndg_fl,cmb_fl,"merge/second_file")
 
 import sys
+import re
 
 def colmatch(fl1,fl2,fl3,chk):
     pos = {};
