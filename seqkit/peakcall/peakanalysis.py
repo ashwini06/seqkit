@@ -26,7 +26,7 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
     'cut -f1-6 $bed > {peaks_dir}/{nm}_annotate \n'
     ''+TSS_cmd+'\n'
     ''+NDG_cmd+'\n'
-    'python '+col_match.__file__+'{peaks_dir}/{nm}_annotate.tss {peaks_dir}/{nm}_annotate.ndg comb_fl "merge"\n'
+    'python '+col_match.__file__+' {peaks_dir}/{nm}_annotate.tss {peaks_dir}/{nm}_annotate.ndg comb_fl "merge"\n'
     'rm {peaks_dir}/{nm}_annotate\n'
     'done\n')             
     
