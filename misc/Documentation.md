@@ -136,7 +136,15 @@ Some of the publications [ref] used danpos2 to call the enriched regions for HM 
 
 **Command-line**
 
-`seqkit peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
+ `seqkit peakanalysis peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt`
+
+## To annotate peak-called regions while peakcalling
+
+`seqkit peakanalysis peakcall -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --peakannotate`
+
+## Seperate peak-annotations on already called peak-regions
+
+` seqkit peakanalysis peakanno -p Ascl1_US --slurm`
 
 **Inputs**
 
