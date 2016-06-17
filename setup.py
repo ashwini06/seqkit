@@ -29,8 +29,8 @@ setup(name='seqkit',
             'preqc = seqkit.preqc.cli:preqc',
             'analysis = seqkit.analysis.cli:analysis',
             'peakanalysis = seqkit.peakcall.cli:peakanalysis',
-            'postqc = seqkit.postqc.cli:postqc'
-                
+            'postqc = seqkit.postqc.cli:postqc',
+            'motif = seqkit.motif.cli:motif' 
         ]
     },
     install_requires=install_requires
