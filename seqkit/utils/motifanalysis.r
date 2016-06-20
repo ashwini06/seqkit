@@ -53,11 +53,12 @@ names(macs.summits) <- paste( seqnames(macs.summits), start(macs.summits), end(m
 # take a look at the resulting GRanges centered around the MACS peak summit positions
 macs.summits
 out.folder <- args[2]
+fl_nm <- args[3]
 
 # ## Collect all peak sequences
 seqs <- getSeq(Mmusculus, macs.summits, as.character=FALSE)
 names(seqs) <- names(macs.summits)
-writeXStringSet(seqs,file=paste0(out.folder), format="fasta", append=FALSE)
+writeXStringSet(seqs,file=paste(out.folder,fl_nm,sep="/"), format="fasta", append=FALSE)
 
 
 ## MOtif Analysis 
@@ -65,12 +66,13 @@ writeXStringSet(seqs,file=paste0(out.folder), format="fasta", append=FALSE)
 # get list of fasta files
 fa.files <- list.files(paste(out.folder,sep=""), pattern="*fa$", full.names=TRUE)
 # define MEME parameters
-parameters <- " -nmotifs 3 -minsites 100 -minw 8 -maxw 35 -revcomp -maxsize 500000 -dna -oc "
+#parameters <- " -nmotifs 3 -minsites 100 -minw 8 -maxw 35 -revcomp -maxsize 5000000 -dna -oc "
+params <- " -db /sw/apps/bioinfo/MEMEsuite/4.11.1/milou/db/motif_databases/MOUSE/chen2008.meme -meme-maxsize 500000 -meme-minsites 100 -oc "
 for (fa.file in fa.files) {
 meme.out <- substr(fa.file,1,nchar(fa.file)-3)
 #construct full MEME command
-mycommand <- paste("meme ",fa.file,parameters,meme.out,sep="")
-system(mycommand)
-#print(mycommand)
+mycommand <- paste("meme-chip",params,meme.out,fa.file,sep=" ")
+#system(mycommand)
+print(mycommand)
 }
 
