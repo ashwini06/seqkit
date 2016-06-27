@@ -1,7 +1,7 @@
 ## Program to identify the Motifs in the whole set of peaks; checkout the most common motifs in top,bottom and random peaks
 ## Once PWM is defined, checkout the locations of Binding sites in the given (Target) peaks
 
-## Run as Rscript motifanalysis.r ip_file op_file PWM_file
+## Run as Rscript motifanalysis.r ip_file op_dir op_nm
 
 .libPaths("/pica/h1/ashwini/anaconda2/lib/R/library")
 library("BSgenome")
@@ -67,12 +67,12 @@ writeXStringSet(seqs,file=paste(out.folder,fl_nm,sep="/"), format="fasta", appen
 fa.files <- list.files(paste(out.folder,sep=""), pattern="*fa$", full.names=TRUE)
 # define MEME parameters
 #parameters <- " -nmotifs 3 -minsites 100 -minw 8 -maxw 35 -revcomp -maxsize 5000000 -dna -oc "
-params <- " -db /sw/apps/bioinfo/MEMEsuite/4.11.1/milou/db/motif_databases/MOUSE/chen2008.meme -meme-maxsize 500000 -meme-minsites 100 -oc "
+params <- " -db /sw/apps/bioinfo/MEMEsuite/4.11.1/milou/db/motif_databases/JASPAR/JASPAR_CORE_2016_vertebrates.meme -meme-maxsize 500000 -meme-minsites 100 -oc "
 for (fa.file in fa.files) {
 meme.out <- substr(fa.file,1,nchar(fa.file)-3)
 #construct full MEME command
 mycommand <- paste("meme-chip",params,meme.out,fa.file,sep=" ")
-#system(mycommand)
+system(mycommand)
 print(mycommand)
 }
 

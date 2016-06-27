@@ -9,7 +9,8 @@ import re
 def colmatch(fl1,fl2,fl3,chk):
     pos = {};
     with open(fl1,'r') as in_fl1, open(fl2,'r') as in_fl2, open(fl3, 'w') as op_fl:
-        head1 = in_fl1.next(); head2 = in_fl2.next() ;
+        head1 = in_fl1.next(); 
+        head2 = in_fl2.next();
         head1 = head1.strip().split('\t');
         head2 = head2.strip().split('\t');
         if chk == "merge":
