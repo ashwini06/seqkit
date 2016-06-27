@@ -21,6 +21,9 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
     '#SBATCH -t 3:00:00\n'
     '#SBATCH --mail-type=FAIL\n'
     '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n')
+    '#SBATCH -o {peaks_dir}/{name}_peakcall.stdout\n'
+    '#SBATCH -e {peaks_dir}/{name}_peakcall.stderr\n'
+
     template_peakanno = ('\n## Running peak-annotations\n'
     'for bed in $(ls --color=never {peaks_dir}/*narrowPeak);do\n'
     'cut -f1-6 $bed > {peaks_dir}/{nm}_annotate \n'
@@ -45,9 +48,8 @@ def run_peakanno(project,peak_call,slurm=False,job_file=None):
             template_anno = sbatch_template+template_peakanno
             with open(job_file,'w') as jb_fl:
                 jb_fl.write(template_anno.format(peaks_dir=sam,nm=nm,anno_dir=annotate_dir))
-            job_file=None
-        subprocess.check_all(['sbatch',job_file])
-
+            subprocess.check_call(['sbatch',job_file])
+            job_file = None
 
 def run_peakcall(project, input_file, mode, peak_call,peakannotate):
     """ Will run the prefered peak-calling software """
