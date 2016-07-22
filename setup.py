@@ -30,7 +30,8 @@ setup(name='seqkit',
             'analysis = seqkit.analysis.cli:analysis',
             'peakanalysis = seqkit.peakcall.cli:peakanalysis',
             'postqc = seqkit.postqc.cli:postqc',
-            'motif = seqkit.motif.cli:motif' 
+            'motif = seqkit.motif.cli:motif',
+            'htcuff = seqkit.htcuff.cli:htcuff' 
         ]
     },
     install_requires=install_requires
