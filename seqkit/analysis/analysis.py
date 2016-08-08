@@ -88,7 +88,7 @@ def run_align(project, aligner, sample, bam_to_bed):
                         'module load bowtie2/2.2.6\n')
         align_index = "/sw/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/Bowtie2Index/genome"
         align_gtf = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Annotation/Genes/genes.gtf"
-        align_block = ("tophat -o {align_dir}/${{nam}} -G {align_gtf} -p 8 --library-type fr-firststrand --solexa1.3-quals ${align_index} ${{fq}} \n\n"
+        align_block = ("tophat -o {align_dir}/${{nam}} -G ${{align_gtf}} -p 8 --library-type fr-firststrand --solexa1.3-quals {align_index} ${{fq}} \n\n"
                         "mv {align_dir}/${{nam}}/accepted_hits.bam {align_dir}/${{nam}}.bam\n")   
     
 
@@ -139,7 +139,7 @@ def run_align(project, aligner, sample, bam_to_bed):
             os.makedirs(align_dir)
         job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,aligner))
         with open(job_file, 'w') as jb_fl:
-            jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir, align_dir=align_dir,align_index=align_index,align_gtf=align_gtf))
+            jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir, align_dir=align_dir,align_index=align_index))
         if bam_to_bed:
             run_b2b(project=project, aligner=aligner, slurm=True, sample=sam, job_file=job_file)
         subprocess.check_call(['sbatch',job_file])
