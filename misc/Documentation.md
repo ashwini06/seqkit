@@ -177,7 +177,9 @@ macs2/danpos2 command line parameters can be edited in [configuration file](http
 
 **Command-line**
 
-`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes.bed`
+`seqkit postqc -p Ascl1_US -i /home/ashwini/scripts/seqkit/data/test.txt --genefile /home/ashwini/scripts/seqkit/data/UCSC_mm10genes.bed -m TSS`
+
+ `seqkit postqc -p lizzy_andersson_ChIP_ESC_Foxa2 -i /proj/b2012025/RAW_DATA/ChIP_Data/lizzy_andersson_ChIP_ESC_Foxa2/post_IDRanalysis/comparison_file.txt -m TSS --genefile /proj/b2012025/RAW_DATA/ChIP_Data/lizzy_andersson_ChIP_ESC_Foxa2/post_IDRanalysis/foxa2_d3.5_consistentpeaks.bed`
 
 **Inputs**
 
