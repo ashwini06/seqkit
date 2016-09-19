@@ -6,10 +6,14 @@ from glob import glob
 from seqkit import CONFIG as conf
 from seqkit.utils.find_samples import find_samples
 
-def bamcov(project, genefile, input_file):
+def bamcov(project, genefile, input_file, mode):
     """Will run the postqc"""
     root_dir = conf.get('root_dir','')
     proj_dir = os.path.join(root_dir, project)
+    if mode == "scale":
+        assign_mode = conf.get('computematrix_scale','')
+    else: 
+        assign_mode = conf.get('computematrix_TSS','')
     sbatch_template = ('#!/bin/bash -l\n'
                        '#SBATCH -A b2012025\n'
                        '#SBATCH -J {name}_postqc\n'
@@ -21,26 +25,21 @@ def bamcov(project, genefile, input_file):
                        '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
                        'module load bioinfo-tools\n'
                        'module load deepTools/2.2.3\n'
-                       'module load ngsplot/2.61\n\n'
-                       #'bamCompare --bamfile1 {treatment} --bamfile2 {control} --binSize 25 --ratio log2 --scaleFactorsMethod SES -o {postqc_dir}/{treat}_Vs_{ctrl}_log2ratio.bw\n'
-                       'bamCoverage --bam {treatment} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{treat}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
-                       'bamCoverage --bam {control} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{ctrl}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
-                       'plotFingerprint -b {treatment} {control} -plot {postqc_dir}/{treat}_Vs_{ctrl}_fingerprint.png --labels {treat} {ctrl}\n'
-                       'multiBamSummary bins --bamfiles '+proj_dir+'/*/alignment_bowtie/bam_files/*_rmdup.bam -out {postqc_dir}/results.npz\n'
-                       'plotCorrelation --corData {postqc_dir}/results.npz --plotFile {postqc_dir}/scatterplot.pdf --corMethod pearson --whatToPlot scatterplot --skipZeros\n'
-                       'computeMatrix scale-regions -S {postqc_dir}/{treat}_coverage.bw {postqc_dir}/{ctrl}_coverage.bw -R {ucsc_file} --skipZeros -o {postqc_dir}/matrix.mat.gz --beforeRegionStartLength 3000 --regionBodyLength 5000 --afterRegionStartLength 3000\n'
-                       'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png\n'
-                       'ngs.plot.r -G mm10 -R genebody -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.genebody -T {treat}\n'
-                       'ngs.plot.r -G mm10 -R tss -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.tss -T {treat} -L 3000 -FL 3000\n'
-                       #'if [ -e *cnt ]; then rm *cnt; fi\n'
-                        )
+                       #'module load ngsplot/2.61\n\n'
+                       )
+                    
+    template = ('bamCompare -b1 {treatment} -b2 {control} --binSize 25 --ratio log2 --scaleFactorsMethod SES -o {postqc_dir}/{treat}_Vs_{ctrl}_log2ratio.bw\n'
+                ''+assign_mode+'\n'
+                'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png --heatmapHeight 25 --heatmapWidth 3 --whatToShow \'heatmap and colorbar\' --sortUsing max --dpi 100\n'
+                )
 
 
-    ucsc_file = genefile
-
+    bed_file = genefile
     pk_file = open(input_file,'r')
     pk_file.next()
     for ln in iter(pk_file):
+        #import pdb;
+        #pdb.set_trace()
         ln = ln.strip()
         ln =  ln.split('\t')
         treat = ln[0]
@@ -58,8 +57,19 @@ def bamcov(project, genefile, input_file):
                 con_c = con_c.replace("_sorted_rmdup.bam","")
                 name = "{}_Vs_{}".format(suf_s,con_c)
                 job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
+                template_pc = sbatch_template+template
                 with open(job_file, 'w') as jb_fl:
-                    jb_fl.write(sbatch_template.format(sample=treat, treat=suf_s, ctrl=con_c, name=name, treatment=sam, control=con, ucsc_file=ucsc_file, postqc_dir=postqc_dir))
-                subprocess.check_call(['sbatch',job_file])
+                    jb_fl.write(template_pc.format(sample=treat, treat=suf_s, ctrl=con_c, name=name, treatment=sam, control=con, bed_file=bed_file, postqc_dir=postqc_dir))
+#                subprocess.check_call(['sbatch',job_file])
 
+
+
+                       #'bamCoverage --bam {treatment} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{treat}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
+                       #'bamCoverage --bam {control} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{ctrl}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
+                       #'plotFingerprint -b {treatment} {control} -plot {postqc_dir}/{treat}_Vs_{ctrl}_fingerprint.png --labels {treat} {ctrl}\n'
+                       #'multiBamSummary bins --bamfiles '+proj_dir+'/*/alignment_bowtie/bam_files/*_rmdup.bam -out {postqc_dir}/results.npz\n'
+                       #'plotCorrelation --corData {postqc_dir}/results.npz --plotFile {postqc_dir}/scatterplot.pdf --corMethod pearson --whatToPlot scatterplot --skipZeros\n'
+                        #'ngs.plot.r -G mm10 -R genebody -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.genebody -T {treat}\n'
+                       #'ngs.plot.r -G mm10 -R tss -C {treatment}:{control} -O {postqc_dir}/{treat}_Vs_{ctrl}.tss -T {treat} -L 3000 -FL 3000\n'
+                       #'if [ -e *cnt ]; then rm *cnt; fi\n'
 
