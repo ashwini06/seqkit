@@ -14,7 +14,7 @@ def run_htcuff(project, aligner, sample=None):
     align_template = ('#!/bin/bash -l\n'
                       '#SBATCH -A b2012025\n'
                       '#SBATCH -J {sam}_htcuff\n'
-                      '#SBATCH -p core -n 10 \n' 
+                      '#SBATCH -p core -n 1 \n' 
                       '#SBATCH -t 10:00:00\n'
                       '#SBATCH --mail-type=FAIL\n'
                       '#SBATCH --mail-user=\'ashwini.jeggari@scilifelab.se\'\n\n'
@@ -25,11 +25,12 @@ def run_htcuff(project, aligner, sample=None):
                       'module load cufflinks/2.2.1\n'
                       'module load htseq/0.6.1\n\n'
                       'genome_fl=\"/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Annotation/Genes/genes.gtf\"\n'
-                      'for bam in $(ls --color=never {align_dir}/*_sorted*.bam);do\n'
+                      'for bam in $(ls --color=never {align_dir}/*_sorted.bam);do\n'
                       'nm=$(basename ${{bam}})\n'
                       'nm=${{nm/.bam/}}\n'
                       'htseq-count -s reverse -q -f bam ${{bam}} ${{genome_fl}} > {ht_dir}/${{nm}}_counts.txt\n'
-                      'cufflinks -p 8 --library-type fr-firststrand -G ${{genome_fl}} -o {cuff_dir}/${{nm}}_cufflinks ${{bam}}\n\n')
+                      'cufflinks -p 8 --library-type fr-firststrand -G ${{genome_fl}} -o {cuff_dir}/${{nm}}_cufflinks ${{bam}}\n'
+                       'done\n\n')
 
 
     if sample:
@@ -54,4 +55,4 @@ def run_htcuff(project, aligner, sample=None):
         job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,"htcuff"))
         with open(job_file, 'w') as jb_fl:
             jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir, align_dir=align_dir,ht_dir=ht_dir,cuff_dir=cuff_dir))
-        #subprocess.check_call(['sbatch',job_file])
+        subprocess.check_call(['sbatch',job_file])

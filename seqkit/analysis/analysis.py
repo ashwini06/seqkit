@@ -34,7 +34,7 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
                 'bed_fl=${{bed_fl/bam_files/bedfiles}}\n'
                 'bed_uniq_fl=${{bed_fl/.bed/_uniq.bed}}\n'
                 'bamToBed -i ${{bam}} > ${{bed_fl}}\n'
-                'awk -F\\\\t -v \'OFS=\\t\' \'{{print "chr"$1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
+                'awk -F\\\\t -v \'OFS=\\t\' \'{{print $1,$2,$3,".",$5,$6}}\' ${{bed_fl}} | sort -u > ${{bed_uniq_fl}}\n'
                 'rm ${{bed_fl}}\n'
                 'done\n')
         sam_dir = os.path.join(proj_dir, sam)
@@ -83,8 +83,17 @@ def run_align(project, aligner, sample, bam_to_bed):
         align_index = "/pica/data/uppnex/igenomes_new/Mus_musculus/Ensembl/GRCm38/Sequence/STARIndex"
         align_block = ("STAR --genomeDir {align_index} --readFilesIn ${{fq}} --outFilterIntronMotifs RemoveNoncanonical --outFileNamePrefix {align_dir}/${{nam}} --outSAMmode Full --runThreadN 8 --outFilterType BySJout --alignSJDBoverhangMin 1 --outFilterMismatchNmax 5\n\n")
         
+    elif aligner == "tophat":
+    	align_module = ('module load tophat/2.0.12\n'
+                        'module load bowtie2/2.2.6\n')
+        align_index = "/sw/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/Bowtie2Index/genome"
+        align_gtf = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Annotation/Genes/genes.gtf"
+        align_block = ("tophat -o {align_dir}/${{nam}} -G ${{align_gtf}} -p 8 --library-type fr-firststrand --solexa1.3-quals {align_index} ${{fq}} \n\n"
+                        "mv {align_dir}/${{nam}}/accepted_hits.bam {align_dir}/${{nam}}.bam\n")   
+    
+
     align_template = ('#!/bin/bash -l\n'
-                      '#SBATCH -A b2012025\n'
+    		      '#SBATCH -A b2012025\n'
                       '#SBATCH -J {sam}_align\n'
                       '#SBATCH -p core -n 4 \n' 
                       '#SBATCH -t 10:00:00\n'
@@ -93,24 +102,23 @@ def run_align(project, aligner, sample, bam_to_bed):
                       '#SBATCH -e {sam_dir}/scripts/{sam}_align.stderr\n'
                       '#SBATCH -o {sam_dir}/scripts/{sam}_align.stdout\n'
                       'module load bioinfo-tools\n'
-                      'module load samtools/1.3\n'
                       ''+align_module+''
+                      'module load samtools/0.1.19\n'
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*.gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*.gz; fi\n'
                       'if [[ $(ls --color=never {sam_dir}/Rawdata/*zip | wc -l) -gt 0 ]]; then unzip {sam_dir}/Rawdata/*zip; fi\n'
-                      'if [[ $(ls --color=never {sam_dir}/Rawdata/*gz | wc -l) -gt 0 ]]; then gzip -d {sam_dir}/Rawdata/*gz; fi\n\n'
                       'for fq in $(ls --color=never {sam_dir}/Rawdata/*.fastq);do\n'
                       'nm=$(basename ${{fq}})\n'
                       'nm=${{nm/_*/}}\n' 
                       'nam="{sam}_"${{nm}}\n\n'
                       ''+align_block+''
-                      'samtools view -H {align_dir}/${{nam}}.bam | sed -e \'s/SN:\([0-9XY]\)/SN:chr\\1/\' -e \'s/SN:M/SN:chrM/\' | samtools reheader - {align_dir}/${{nam}}.bam > {align_dir}/${{nam}}_v1.bam\n\n'
-                      'mv {align_dir}/${{nam}}_v1.bam {align_dir}/${{nam}}.bam\n\n'
-                      'samtools sort -T {align_dir}/temp -o {align_dir}/${{nam}}_sorted.bam {align_dir}/${{nam}}.bam\n\n'
+                      #'samtools view -H {align_dir}/${{nam}}.bam | sed -e \'s/SN:\([0-9XY]\)/SN:chr\\1/\' -e \'s/SN:M/SN:chrM/\' | samtools reheader - {align_dir}/${{nam}}.bam > {align_dir}/${{nam}}_v1.bam\n\n'
+                      #'mv {align_dir}/${{nam}}_v1.bam {align_dir}/${{nam}}.bam\n\n'
+                      'samtools sort {align_dir}/${{nam}}.bam {align_dir}/${{nam}}_sorted\n\n'
                       'java -jar /pica/sw/apps/bioinfo/picard/1.92/milou/MarkDuplicates.jar INPUT={align_dir}/${{nam}}_sorted.bam OUTPUT={align_dir}/${{nam}}_sorted_rmdup.bam METRICS_FILE={align_dir}/${{nam}}_picardmetrics.txt REMOVE_DUPLICATES=True\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted_rmdup.bam\n\n'
                       'samtools index {align_dir}/${{nam}}_sorted.bam\n\n'
-                      'rm {align_dir}/${{nam}}.bam\n\n'
-                      'rm {align_dir}/${{nam}}.sam\n\n'
+                      '[ -e {align_dir}/${{nam}}_sorted.bam ] && rm {align_dir}/${{nam}}.bam\n\n'
+                      '[ -e {align_dir}/${{nam}}.sam ] && rm  {align_dir}/${{nam}}.sam\n\n'
                       'done\n')
 
     if sample:
@@ -131,7 +139,9 @@ def run_align(project, aligner, sample, bam_to_bed):
             os.makedirs(align_dir)
         job_file = os.path.join(src_dir, "{}_{}.sh".format(sam,aligner))
         with open(job_file, 'w') as jb_fl:
-            jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir, align_dir=align_dir, align_index=align_index))
+            jb_fl.write(align_template.format(sam=sam, sam_dir=sam_dir, align_dir=align_dir,align_index=align_index))
         if bam_to_bed:
             run_b2b(project=project, aligner=aligner, slurm=True, sample=sam, job_file=job_file)
         subprocess.check_call(['sbatch',job_file])
+
+

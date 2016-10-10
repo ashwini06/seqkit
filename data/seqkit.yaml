@@ -1,11 +1,12 @@
 root_dir: "/proj/b2012025/RAW_DATA/ChIP_Data"
-macs2_TF: "macs2 callpeak -t {treatment} -c {control} -n {name} -g mm -f BED -p 0.001 --outdir {peaks_dir} 2>{peaks_dir}/{name}_macs2_TF.log\n"
-macs2_HM: "macs2 callpeak -t {treatment} -c {control} -n {name} -g mm -f BED --outdir {peaks_dir} --broad --broad-cutoff 0.1 2> {peaks_dir}/{name}_macs2_HM.log\n"
+#root_dir: "/proj/b2012025/nobackup/ChIP_Seq"
+macs2_TF: "macs2 callpeak -t {treatment} -c {control} -n {name} -g mm -f BED -p 1e-5 --outdir {peaks_dir} 2>{peaks_dir}/{name}_macs2_TF.log"
+macs2_HM: "macs2 callpeak -t {treatment} -c {control} -n {name} -g mm -f BED --outdir {peaks_dir} --broad --broad-cutoff 0.1 2> {peaks_dir}/{name}_macs2_HM.log"
 danpos2_dregion: ""
 danpos2_dpeak: "python danpos.py dpeak {treatment} -b {control} -o {peaks_dir}"
 danpos2_dtriple: ""
-
-
+anno_TSS: "java -jar /home/ashwini/scripts/seqkit/misc/PeakAnnotator.jar -u TSS -p {peaks_dir}/{nm}_annotate -a /home/ashwini/scripts/seqkit/data/mm10_ensembl.bed -s /home/ashwini/scripts/seqkit/data/mm10_symbolfile.txt -o {anno_dir}"
+anno_NDG: "java -jar /home/ashwini/scripts/seqkit/misc/PeakAnnotator.jar -u NDG -p {peaks_dir}/{nm}_annotate -a /home/ashwini/scripts/seqkit/data/mm10_ensembl.bed -s /home/ashwini/scripts/seqkit/data/mm10_symbolfile.txt -o {anno_dir}"
 
 #"macs2 callpeak -t $raw_dir/'+sam+'/'+rn+' -c $raw_dir/'+con+'/'+cnn+' -n '+sam+'_'+rn_nm+'_Vs_'+con+'_'+cnn_nm+' --outdir $build_mod --broad -g mm -f BED --broad-cutoff 0.1 2> $build_mod/'+sam+'_'+rn_nm+'_Vs_'+con+'_'+cnn_nm+'_macs2.log\n"
 #"macs2 callpeak -t $raw_dir/'+sam+'/'+rn+' -c $raw_dir/'+con+'/'+cnn+' -n '+sam+'_'+rn_nm+'_Vs_'+con+'_'+cnn_nm+' --outdir $no_mod --broad -g mm -f BED --broad-cutoff 0.1 --nomodel --extsize 146 2>$no_mod/'+sam+'_'+rn_nm+'_Vs_'+con+'_'+cnn_nm+'_macs2.log\n"
