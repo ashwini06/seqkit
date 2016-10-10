@@ -13,12 +13,13 @@ def analysis():
 @analysis.command()
 @click.option('-p','--project',required=True, type=click.STRING,help='Project to perform alignment')
 @click.option('-a','--aligner', default='bowtie',type=click.STRING,help='which aligner to use bowtie/bowtie2/bwa/STAR/tophat, default is "bowtie"')
+@click.option('-g','--genome',default='mm10',type=click.STRING,help='reference genome, default is mm10')
 @click.option('-s','--sample',type=click.STRING,help='Sample to run')
 @click.option('--bam_to_bed', is_flag=True, help="Convert the aligned bam files to bed files")
 @click.pass_context
-def align(ctx, project, aligner, sample, bam_to_bed):
+def align(ctx, project, aligner, genome , sample, bam_to_bed):
 	""" Commands to run analysis/pipelines """
-	als.run_align(project, aligner, sample, bam_to_bed)
+	als.run_align(project, aligner, genome, sample, bam_to_bed)
 
 @analysis.command()
 @click.option('-p','--project',required=True, type=click.STRING,help='project to perform bam2bed conversion')

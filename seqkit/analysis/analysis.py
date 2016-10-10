@@ -54,40 +54,39 @@ def run_b2b(project, aligner, sample=None, slurm=False, job_file=None):
             job_file = None
 
 
-def run_align(project, aligner, sample, bam_to_bed):
+def run_align(project, aligner, genome, sample, bam_to_bed):
     """Will run the preferred-alignment"""
     root_dir = conf.get('root_dir','')
     proj_dir = os.path.join(root_dir, project)
     bed_dir = ''
     if aligner == "bwa":
         align_module = 'module load bwa/0.7.12\n'
-        align_index = '/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/BWAIndex/genome.fa'
+        align_index = conf['genome_index'][genome][aligner]
         align_block = ('bwa aln {align_index} ${{fq}} > {align_dir}/${{nam}}.sai\n'
                        'bwa samse {align_index} {align_dir}/${{nam}}.sai ${{fq}} | samtools view -Sb - > {align_dir}/${{nam}}.bam\n'
                        'rm ${{nam}}.sai\n')
     elif aligner == "bowtie2":
         align_module = 'module load bowtie2/2.2.6\n'
-        align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/Bowtie2Index/genome"
+        align_index = conf['genome_index'][genome][aligner]
         align_block =  ('bowtie2 -t -p 8 -k2 --very-sensitive -x {align_index} -q ${{fq}} -S {align_dir}/${{nam}}.sam 2> {align_dir}/${{nam}}_bowtie2.log\n\n'
                         'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n'
                         'rm {align_dir}/${{nam}}.sam\n\n')
     elif aligner == "bowtie":
         align_module = 'module load bowtie/1.1.2\n'
-        #align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/BowtieIndex/genome"
-        align_index = '/pica/data/uppnex/igenomes/Homo_sapiens/Ensembl/GRCh37/Sequence/BowtieIndex/genome'
+        align_index = conf['genome_index'][genome][aligner]
         align_block =  ('bowtie -q -m 1 -v 3 --best --strata {align_index} ${{fq}} -S {align_dir}/${{nam}}.sam 2>{align_dir}/${{nam}}_bowtie.log\n\n'
                         'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n')
 
     
     elif aligner == "STAR":
         align_module = 'module load star/2.3.1o\n'
-        align_index = "/pica/data/uppnex/igenomes_new/Mus_musculus/Ensembl/GRCm38/Sequence/STARIndex"
+        align_index = conf['genome_index'][genome][aligner] 
         align_block = ("STAR --genomeDir {align_index} --readFilesIn ${{fq}} --outFilterIntronMotifs RemoveNoncanonical --outFileNamePrefix {align_dir}/${{nam}} --outSAMmode Full --runThreadN 8 --outFilterType BySJout --alignSJDBoverhangMin 1 --outFilterMismatchNmax 5\n\n")
         
     elif aligner == "tophat":
     	align_module = ('module load tophat/2.0.12\n'
                         'module load bowtie2/2.2.6\n')
-        align_index = "/sw/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/Bowtie2Index/genome"
+        align_index = conf['genome_index'][genome]['bowtie2'] 
         align_gtf = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Annotation/Genes/genes.gtf"
         align_block = ("tophat -o {align_dir}/${{nam}} -G ${{align_gtf}} -p 8 --library-type fr-firststrand --solexa1.3-quals {align_index} ${{fq}} \n\n"
                         "mv {align_dir}/${{nam}}/accepted_hits.bam {align_dir}/${{nam}}.bam\n")   
