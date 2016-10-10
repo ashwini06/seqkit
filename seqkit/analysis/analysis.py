@@ -73,7 +73,8 @@ def run_align(project, aligner, sample, bam_to_bed):
                         'rm {align_dir}/${{nam}}.sam\n\n')
     elif aligner == "bowtie":
         align_module = 'module load bowtie/1.1.2\n'
-        align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/BowtieIndex/genome"
+        #align_index = "/pica/data/uppnex/igenomes/Mus_musculus/Ensembl/GRCm38/Sequence/BowtieIndex/genome"
+        align_index = '/pica/data/uppnex/igenomes/Homo_sapiens/Ensembl/GRCh37/Sequence/BowtieIndex/genome'
         align_block =  ('bowtie -q -m 1 -v 3 --best --strata {align_index} ${{fq}} -S {align_dir}/${{nam}}.sam 2>{align_dir}/${{nam}}_bowtie.log\n\n'
                         'samtools view -bS -o {align_dir}/${{nam}}.bam {align_dir}/${{nam}}.sam\n\n')
 

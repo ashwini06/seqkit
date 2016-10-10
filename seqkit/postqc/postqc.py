@@ -28,9 +28,9 @@ def bamcov(project, genefile, input_file, mode):
                        #'module load ngsplot/2.61\n\n'
                        )
                     
-    template = ('bamCompare -b1 {treatment} -b2 {control} --binSize 25 --ratio log2 --scaleFactorsMethod SES -o {postqc_dir}/{treat}_Vs_{ctrl}_log2ratio.bw\n'
+    template = ('bamCompare -b1 {treatment} -b2 {control} --binSize 25 --ratio log2 --scaleFactorsMethod "readCount" -o {postqc_dir}/{treat}_Vs_{ctrl}_log2ratio_readcount.bw --normalizeUsingRPKM\n'
                 ''+assign_mode+'\n'
-                'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap.png --heatmapHeight 25 --heatmapWidth 3 --whatToShow \'heatmap and colorbar\' --sortUsing max --dpi 100\n'
+                'plotHeatmap -m {postqc_dir}/matrix.mat.gz -out {postqc_dir}/{treat}_Vs_{ctrl}_heatmap_v2.png --heatmapHeight 25 --heatmapWidth 3 --whatToShow \'heatmap and colorbar\' --sortUsing max\n'
                 )
 
 
@@ -38,8 +38,6 @@ def bamcov(project, genefile, input_file, mode):
     pk_file = open(input_file,'r')
     pk_file.next()
     for ln in iter(pk_file):
-        #import pdb;
-        #pdb.set_trace()
         ln = ln.strip()
         ln =  ln.split('\t')
         treat = ln[0]
@@ -47,14 +45,14 @@ def bamcov(project, genefile, input_file, mode):
         postqc_dir = os.path.join(proj_dir,treat,"deepTools")
         if not os.path.exists(postqc_dir):
             os.mkdir(postqc_dir)
-        treat_fl = glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,treat,treat))
-        control_fl = glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup.bam".format(proj_dir,ctrl,ctrl))
+        treat_fl = glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup_v1.bam".format(proj_dir,treat,treat))
+        control_fl = glob("{}/{}/alignment_*/bam_files/{}*sorted_rmdup_v1.bam".format(proj_dir,ctrl,ctrl))
         for sam in treat_fl:
             suf_s = os.path.basename(sam)
-            suf_s = suf_s.replace("_sorted_rmdup.bam","")
+            suf_s = suf_s.replace("_sorted_rmdup_v1.bam","")
             for con in control_fl:  
                 con_c = os.path.basename(con)
-                con_c = con_c.replace("_sorted_rmdup.bam","")
+                con_c = con_c.replace("_sorted_rmdup_v1.bam","")
                 name = "{}_Vs_{}".format(suf_s,con_c)
                 job_file = os.path.join(proj_dir,treat,"{}/{}_{}.sh".format("scripts",name,"postqc"))
                 template_pc = sbatch_template+template
