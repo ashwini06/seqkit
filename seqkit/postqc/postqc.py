@@ -61,7 +61,7 @@ def bamcov(project, genefile, input_file, mode):
 #                subprocess.check_call(['sbatch',job_file])
 
 
-
+                      # bamCoverage --bam ../alignment_bowtie/bam_files/sonctrl_11_3_13_Run00186_sorted.bam --binSize 25 --normalizeUsingRPKM -o sonctrl_11_3_13_sorted_coverage.bw -bl /home/ashwini/scripts/codes/chipSeq_pipeline/files/mm10_blacklisted-regions.bed
                        #'bamCoverage --bam {treatment} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{treat}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
                        #'bamCoverage --bam {control} --binSize 25 --normalizeUsingRPKM -o {postqc_dir}/{ctrl}_coverage.bw -bl /home/ashwini/mm10_blacklisted-regions.bed\n'
                        #'plotFingerprint -b {treatment} {control} -plot {postqc_dir}/{treat}_Vs_{ctrl}_fingerprint.png --labels {treat} {ctrl}\n'
